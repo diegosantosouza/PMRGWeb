@@ -26,44 +26,38 @@
     @if(!empty($internos1))
         <h5 class="font-weight-bold">1º Estágio</h5>
         @foreach($alojamentos->where('estagio', 1) as $alojamento)
-            <p class="text-center font-weight-bold">{{$alojamento->cela}}</p>
-            <table class="table table-sm table-bordered">
+            <p class="font-weight-bold ml-5">{{$alojamento->cela}}</p>
+            <table class="table table-sm table-bordered" style="width: 500px;">
                 <thead>
                 <tr>
-                    <th>Nº</th>
+                    <th class="">Nº</th>
                     <th>Nome</th>
                     <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
                     <th></th>
-                    <th>Visita</th>
-                    <th>Conferido</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach ($internos1->where('alojamento', $alojamento->cela) as $key => $interno)
                     <tr>
-                        <td class="small">{{ $interno->n }}</td>
-                        <td class="small">{{ $interno->nome_guerra }}</td>
-                        <td class="small"></td>
-                        <td class="small"></td>
-                        <td class="small"></td>
-                        <td class="small"></td>
-                        <td class="small"></td>
-                        <td class="small"></td>
-                        <td class="small"></td>
+                        <td class="small" style="width: 50px;">{{ $interno->n }}</td>
+                        <td class="small" style="width: 200px;">{{ $interno->nome_guerra }}</td>
+                        <td class="small" style="width: 50px;"></td>
+                        <td class="small" style="width: 50px;"></td>
+                        <td class="small" style="width: 50px;"></td>
+                        <td class="small" style="width: 50px;"></td>
+                        <td class="small" style="width: 50px;"></td>
                     </tr>
                 @endforeach
+                    <tr>
+                        <td class="font-weight-bold text-center">Qtd.</td>
+                        <td class="font-weight-bold text-center">{{$internos1->where('alojamento', $alojamento->cela)->count()}}</td>
+                        <td class="font-weight-bold text-center" colspan="4">Capacidade</td>
+                        <td class="font-weight-bold text-center">{{$alojamento->capacidade}}</td>
+                    </tr>
                 </tbody>
-            </table>
-            <table class="table table-sm table-bordered">
-                <thead>
-                <th>Qtd.</th>
-                <th>{{$internos1->where('alojamento', $alojamento->cela)->count()}}</th>
-                <th>Capacidade</th>
-                <th>{{$alojamento->capacidade}}</th>
-                </thead>
             </table>
         @endforeach
         <div style="page-break-after: always"></div>
@@ -73,8 +67,8 @@
 
         <h5 class="font-weight-bold">2º Estágio</h5>
         @foreach($alojamentos->where('estagio', 2) as $alojamento)
-            <p class="text-center font-weight-bold">{{$alojamento->cela}}</p>
-            <table class="table table-sm table-bordered">
+            <p class="font-weight-bold ml-5">{{$alojamento->cela}}</p>
+            <table class="table table-sm table-bordered" style="width: 500px;">
                 <thead>
                 <th>Nº</th>
                 <th>Nome</th>
@@ -83,32 +77,26 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                <th>Visita</th>
-                <th>Conferido</th>
                 </thead>
                 <tbody>
                 @foreach ($internos2->where('alojamento', $alojamento->cela) as $key => $interno)
                     <tr>
-                        <td>{{ $interno->n }}</td>
-                        <td>{{ $interno->nome_completo }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class="small" style="width: 50px;">{{ $interno->n }}</td>
+                        <td class="small" style="width: 200px;">{{ $interno->nome_guerra }}</td>
+                        <td class="small" style="width: 50px;"></td>
+                        <td class="small" style="width: 50px;"></td>
+                        <td class="small" style="width: 50px;"></td>
+                        <td class="small" style="width: 50px;"></td>
+                        <td class="small" style="width: 50px;"></td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td class="font-weight-bold text-center">Qtd.</td>
+                    <td class="font-weight-bold text-center">{{$internos1->where('alojamento', $alojamento->cela)->count()}}</td>
+                    <td class="font-weight-bold text-center" colspan="4">Capacidade</td>
+                    <td class="font-weight-bold text-center">{{$alojamento->capacidade}}</td>
+                </tr>
                 </tbody>
-            </table>
-            <table class="table table-sm table-bordered">
-                <thead>
-                <th>Qtd.</th>
-                <th>{{$internos2->where('alojamento', $alojamento->cela)->count()}}</th>
-                <th>Capacidade</th>
-                <th>{{$alojamento->capacidade}}</th>
-                </thead>
             </table>
         @endforeach
         <div style="page-break-after: always"></div>
@@ -118,8 +106,8 @@
     @if(!empty($internos3))
         <h5 class="font-weight-bold">3º Estágio</h5>
         @foreach($alojamentos->where('estagio', 3) as $alojamento)
-            <p class="text-center font-weight-bold">{{$alojamento->cela}}</p>
-            <table class="table table-sm table-bordered">
+            <p class="font-weight-bold ml-5">{{$alojamento->cela}}</p>
+            <table class="table table-sm table-bordered" style="width: 500px;">
                 <thead>
                 <th>Nº</th>
                 <th>Nome</th>
@@ -128,21 +116,17 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                <th>Visita</th>
-                <th>Conferido</th>
                 </thead>
                 <tbody>
                 @foreach ($internos3->where('alojamento', $alojamento->cela) as $key => $interno)
                     <tr>
-                        <td>{{ $interno->n }}</td>
-                        <td>{{ $interno->nome_completo }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class="small">{{ $interno->n }}</td>
+                        <td class="small">{{ $interno->nome_guerra }}</td>
+                        <td class="small"></td>
+                        <td class="small"></td>
+                        <td class="small"></td>
+                        <td class="small"></td>
+                        <td class="small"></td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -160,10 +144,10 @@
     @endif
 
     @if(!empty($internos4))
-        <h5 class="font-weight-bold">4º Estágio</h5>
+        <h5 class="font-weight-bold">SemiAberto</h5>
         @foreach($alojamentos->where('estagio', 4) as $alojamento)
-            <p class="text-center font-weight-bold">{{$alojamento->cela}}</p>
-            <table class="table table-sm table-bordered">
+            <p class="font-weight-bold ml-5">{{$alojamento->cela}}</p>
+            <table class="table table-sm table-bordered" style="width: 500px;">
                 <thead>
                 <th>Nº</th>
                 <th>Nome</th>
@@ -172,21 +156,17 @@
                 <th></th>
                 <th></th>
                 <th></th>
-                <th>Visita</th>
-                <th>Conferido</th>
                 </thead>
                 <tbody>
                 @foreach ($internos4->where('alojamento', $alojamento->cela) as $key => $interno)
                     <tr>
-                        <td>{{ $interno->n }}</td>
-                        <td>{{ $interno->nome_completo }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class="small">{{ $interno->n }}</td>
+                        <td class="small">{{ $interno->nome_guerra }}</td>
+                        <td class="small"></td>
+                        <td class="small"></td>
+                        <td class="small"></td>
+                        <td class="small"></td>
+                        <td class="small"></td>
                     </tr>
                 @endforeach
                 </tbody>

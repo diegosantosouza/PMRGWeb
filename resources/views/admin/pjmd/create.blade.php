@@ -91,14 +91,12 @@
                         <div class="label_g2">
                             <label class="label">
                                 <span class="legend">*Data de Início:</span>
-                                <input type="date" name="data_inicio" required="required" class=""
-                                       placeholder="dd/mm/yyyy"
-                                       value="{{ old('data_inicio') }}"/>
+                                <input type="date" name="data_inicio" required="required" class="" placeholder="dd/mm/yyyy" value="{{ old('data_inicio') }}"/>
                             </label>
 
                             <label class="label">
                                 <span class="legend">*Data de Término:</span>
-                                <input type="date" name="data_inicio" class=""
+                                <input type="date" name="data_termino" class=""
                                        placeholder="dd/mm/yyyy"
                                        value="{{ old('data_termino') }}"/>
                             </label>
