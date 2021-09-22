@@ -26,6 +26,9 @@ class Comportamento extends FormRequest
     {
         return [
             'numero'=>'required',
+            'pdi_status'=>'required',
+            'tipo_falta'=>'required',
+            'data_inicio'=>'required',
         ];
     }
 }

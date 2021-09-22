@@ -36,6 +36,7 @@
                     <tr>
                         <th>Nº</th>
                         <th>Nome</th>
+                        <th>Nome Guerra</th>
                         <th>Status</th>
                         <th>Alojamento</th>
                         <th>Comportamento</th>
@@ -58,6 +59,7 @@
                             <tr>
                         @endif
                                 <td>{{$interno->n}}</td>
+                                <td>{{$interno->nome_completo}}</td>
                                 <td>{{$interno->nome_guerra}}</td>
                                 <td>{{$interno->status}}</td>
                                 <td>{{$interno->alojamento}}</td>

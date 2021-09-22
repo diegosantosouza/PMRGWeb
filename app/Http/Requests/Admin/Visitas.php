@@ -40,7 +40,7 @@ class Visitas extends FormRequest
             'mae'=>'nullable',
             'endereco'=>'required',
             'cidade'=>'required',
-            'cep'=>'required',
+//            'cep'=>'required',
             'celular'=>'required',
             'status'=>'required',
             'antecedentes'=>'nullable',

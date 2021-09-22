@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<div class="row mx-auto">
+<div class="row mx-auto container">
     <img class="img-header" src="{{url(asset('backend/assets/images/sao_paulo.png'))}}">
     <div class="mx-auto">
         <h3 class="text-center">GOVERNO DO ESTADO DE SÃO PAULO</h3>
@@ -29,28 +29,30 @@
             <p class="text-center font-weight-bold">{{$alojamento->cela}}</p>
             <table class="table table-sm table-bordered">
                 <thead>
-                <th>Nº</th>
-                <th>Nome</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th>Visita</th>
-                <th>Conferido</th>
+                <tr>
+                    <th>Nº</th>
+                    <th>Nome</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Visita</th>
+                    <th>Conferido</th>
+                </tr>
                 </thead>
                 <tbody>
                 @foreach ($internos1->where('alojamento', $alojamento->cela) as $key => $interno)
                     <tr>
-                        <td>{{ $interno->n }}</td>
-                        <td>{{ $interno->nome_completo }}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class="small">{{ $interno->n }}</td>
+                        <td class="small">{{ $interno->nome_guerra }}</td>
+                        <td class="small"></td>
+                        <td class="small"></td>
+                        <td class="small"></td>
+                        <td class="small"></td>
+                        <td class="small"></td>
+                        <td class="small"></td>
+                        <td class="small"></td>
                     </tr>
                 @endforeach
                 </tbody>

@@ -22,13 +22,13 @@ class CreateInternosTable extends Migration
             $table->string('orientacao_sexual');
             $table->string('rg');
             $table->string('org_expedidor')->nullable();
-            $table->bigInteger('cpf')->unique();
+            $table->string('cpf')->unique();
             $table->bigInteger('titulo_eleitor')->nullable();
             $table->integer('zona')->nullable();
             $table->integer('secao')->nullable();
             $table->string('nacionalidade');
             $table->string('natural');
-            $table->string('estado');
+            $table->string('estado')->nullable();
             $table->date('nascimento');
             $table->integer('idade');
             $table->string('estado_civil');
@@ -60,7 +60,7 @@ class CreateInternosTable extends Migration
 
 
             $table->string('nome_guerra')->nullable();
-            $table->bigInteger('re')->unique()->nullable();
+            $table->string('re')->unique()->nullable();
             $table->bigInteger('funcional')->nullable();
             $table->string('patente')->nullable();
             $table->string('situacao')->nullable();

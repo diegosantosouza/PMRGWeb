@@ -29,7 +29,8 @@
         <th>Nome</th>
         <th>Documento</th>
         <th>Parentesco</th>
-        <th>Nº</th>
+        <th>Interno</th>
+        <th>RE</th>
         <th>Estágio</th>
         <th>Entrada</th>
         <th>Saída</th>
@@ -37,13 +38,14 @@
         <tbody>
         @foreach ($visitantes as $key => $visitante)
             <tr>
-                <td>{{$visitante->visitas->nome }}</td>
-                <td>{{$visitante->visitas->tipo_doc.' '.$visitante->visitas->documento}}</td>
-                <td>{{$visitante->visitas->parentesco}}</td>
-                <td>{{$visitante->interno->n}}</td>
-                <td>{{$visitante->interno->estagio}}</td>
-                <td>@if (!empty($visitante->created_at)) {{date('H:i:s', strtotime($visitante->created_at))}} @endif</td>
-                <td>@if (!empty($visitante->saida)) {{date('H:i:s', strtotime($visitante->saida))}} @endif</td>
+                <td class="small">{{$visitante->visitas->nome }}</td>
+                <td class="small" style="width: 150px;">{{$visitante->visitas->tipo_doc.' '.$visitante->visitas->documento}}</td>
+                <td class="small">{{$visitante->visitas->parentesco}}</td>
+                <td class="small">{{$visitante->interno->n.'-'.$visitante->interno->nome_guerra}}</td>
+                <td class="small text-sm-center" style="width: 80px;">{{$visitante->interno->re}}</td>
+                <td class="small text-sm-center">{{$visitante->interno->estagio}}</td>
+                <td class="small">@if (!empty($visitante->created_at)) {{date('H:i:s', strtotime($visitante->created_at))}} @endif</td>
+                <td class="small">@if (!empty($visitante->saida)) {{date('H:i:s', strtotime($visitante->saida))}} @endif</td>
             </tr>
         @endforeach
         </tbody>

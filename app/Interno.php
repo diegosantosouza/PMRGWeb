@@ -81,17 +81,22 @@ class Interno extends Model
 
     public function trabalho()
     {
-        return $this->hasOne(Empregador::class,'id','empregador');
+        return $this->hasOne(Empregador::class, 'id', 'empregador');
     }
 
     public function ensino()
     {
-        return $this->hasOne(Estudo::class,'id','estudo');
+        return $this->hasOne(Estudo::class, 'id', 'estudo');
     }
 
     public function processos()
     {
-        return $this->hasMany(Processos::class,'id_interno','id');
+        return $this->hasMany(Processos::class, 'id_interno', 'id');
+    }
+
+    public function legislacao()
+    {
+        return $this->hasManyThrough(Legislacao::class, Processos::class, 'id_interno', 'id_processo', 'id','id');
     }
 
     public function arquivos()
@@ -114,14 +119,21 @@ class Interno extends Model
         return $this->hasMany(Comportamento::class, 'id_interno', 'id');
     }
 
+    public function movcarcerario()
+    {
+        return $this->hasMany(MovCarcerario::class, 'id_interno', 'id');
+    }
+
+
     public function getUrlFotoAttribute()
     {
-        if(!empty($this->foto)){
+        if (!empty($this->foto)) {
             return Storage::url(Cropper::thumb($this->foto, 300, 300));
         }
 
         return url(asset('backend/assets/images/avatarDefault.png'));
     }
+
     public function setCpfAttribute($value)
     {
         $this->attributes['cpf'] = $this->clearField($value);
@@ -134,12 +146,15 @@ class Interno extends Model
 
     public function getNascimentoAttribute($value)
     {
-            return date('d-m-Y', strtotime($value));
+        return date('d-m-Y', strtotime($value));
     }
 
     public function setTelefoneAttribute($value)
     {
         $this->attributes['telefone'] = $this->clearField($value);
+        if(empty($value)){
+            $this->attributes['telefone'] = null;
+        }
     }
 
     public function setAdmissaoAttribute($value)
@@ -149,7 +164,7 @@ class Interno extends Model
 
     public function getAdmissaoAttribute($value)
     {
-            return date('d-m-Y', strtotime($value));
+        return date('d-m-Y', strtotime($value));
     }
 
     public function setDemissaoAttribute($value)
@@ -168,6 +183,7 @@ class Interno extends Model
     {
         $this->attributes['data_liberdade_remocao'] = $this->convertStringToDate($value);
     }
+
     public function getDataLiberdadeRemocaoAttribute($value)
     {
         if (!empty($value)) {
@@ -177,12 +193,12 @@ class Interno extends Model
 
     public function setComportamentoDataAttribute($value)
     {
-        $this->attributes['comportamento_data'] = $this->convertStringToDate($value);
+        $this->attributes['comportamento_data'] = $value;
     }
 
     public function getComportamentoDataAttribute($value)
     {
-        if (empty($value)){
+        if (empty($value)) {
             return null;
         }
         return date('d-m-Y', strtotime($value));
@@ -200,7 +216,7 @@ class Interno extends Model
 
     private function convertStringToDate(?string $param)
     {
-        if(empty($param)){
+        if (empty($param)) {
             return null;
         }
 
@@ -210,7 +226,7 @@ class Interno extends Model
 
     private function clearField(?string $param)
     {
-        if(empty($param)){
+        if (empty($param)) {
             return '';
         }
 

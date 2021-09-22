@@ -65,7 +65,7 @@
                             </label>
                             <label class="label">
                                 <span class="legend">*Data:</span>
-                                <input class="mask-date" type="tel" name="comportamento_data" value="{{ old('comportamento_data') ?? $comportamento->comportamento_data}}"/>
+                                <input class="" type="date" name="comportamento_data" @if(!empty($comportamento->comportamento_data)) value="{{date('Y-m-d', strtotime($comportamento->comportamento_data))}}"/>@endif
                             </label>
                         </div>
                     </div>

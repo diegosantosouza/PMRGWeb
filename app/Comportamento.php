@@ -17,6 +17,7 @@ class Comportamento extends Model
         'punicao',
         'data_inicio',
         'data_termino',
+        'outra_falta',
     ];
 
     public function interno()
@@ -31,22 +32,28 @@ class Comportamento extends Model
 
     public function setDataInicioAttribute($value)
     {
-        $this->attributes['data_inicio'] = $this->convertStringToDate($value);
+        $this->attributes['data_inicio'] = $value;
     }
 
     public function getDataInicioAttribute($value)
     {
-        return date('d/m/Y', strtotime($value));
+        if (empty($value)) {
+            return null;
+        }
+        return date('d-m-Y', strtotime($value));
     }
 
     public function setDataTerminoAttribute($value)
     {
-        $this->attributes['data_termino'] = $this->convertStringToDate($value);
+        $this->attributes['data_termino'] = $value;
     }
 
     public function getDataTerminoAttribute($value)
     {
-        return date('d/m/Y', strtotime($value));
+        if (empty($value)) {
+            return null;
+        }
+        return date('d-m-Y', strtotime($value));
     }
 
     private function convertStringToDate(?string $param)

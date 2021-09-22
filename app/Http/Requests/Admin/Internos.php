@@ -42,7 +42,6 @@ class Internos extends FormRequest
             'nascimento'=>'required',
             'org_expedidor'=>'min:2|max:191',
             'natural'=>'required',
-            'estado'=>'required',
             'titulo_eleitor'=>'nullable|numeric|max:9999999999999999',
             'zona'=>'nullable|numeric|max:9999999999999999',
             'secao'=>'nullable|numeric|max:9999999999999999',
@@ -68,10 +67,18 @@ class Internos extends FormRequest
             'alojamento'=>'required|max:191',
             'estagio'=>'required',
             'status'=>'required',
+            'created_at'=>'required',
             'tipo_prisao'=>'required|max:191',
             'procedencia'=>'required|max:191',
             'local'=>'max:191',
 
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'created_at.required'=> 'O campo data de inclusão é obrigatório',
         ];
     }
 }

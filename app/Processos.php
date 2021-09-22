@@ -28,18 +28,22 @@ class Processos extends Model
         'transito_julgado',
         'exticao_punibilidade',
         'origem_processo',
-        'cpb_cpm',
-        'artigo',
 
         'assist_juridica',
         'vara_comarca',
         'data_prisao',
+        'processo_referencia'
 
     ];
 
     public function interno()
     {
         return $this->belongsTo(Interno::class,'id_interno','id')->withDefault(['n'=>0]);
+    }
+
+    public function legislacao()
+    {
+        return $this->hasMany(Legislacao::class,'id_processo','id');
     }
 
     public function setDataPrisaoAttribute($value)

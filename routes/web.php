@@ -74,6 +74,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('processos/{interno}/create', 'ProcessosController@create')->name('processos.create');
     Route::resource('processos', 'ProcessosController')->except(['create']);
 
+    Route::resource('legislacao', 'LegislacaoController');
+
+    Route::POST('alojamentos/buscaestagio', 'AlojamentosController@buscaestagio')->name('alojamentos.buscaestagio');
     Route::resource('alojamentos', 'AlojamentosController');
 
     Route::delete('visita/{visita}/delete', 'VisitaController@arquivoDelete')->name('visita.arquivoDelete');
@@ -99,11 +102,11 @@ Route::group(['middleware' => ['auth']], function () {
 
     //** PJMD */
     Route::resource('pjmd', 'ComportamentoController')->except(['create']);
-
     Route::put('pjmd/comportamentoUpdate/{pjmd}', 'ComportamentoController@comportamentoUpdate')->name('pjmd.comportamentoUpdate');
     Route::get('pjmd/comportamento/{pjmd}', 'ComportamentoController@comportamentoEdit')->name('pjmd.comportamentoEdit');
     Route::delete('pjmd/{pjmd}/delete', 'ComportamentoController@arquivoDelete')->name('pjmd.arquivoDelete');
     Route::POST('pjmd/create', 'ComportamentoController@create')->name('pjmd.create');
+
 
     //** PDF */
     Route::post('pdf/interno', 'PdfController@internoPDF')->name('gerar.internoPDF');

@@ -46,6 +46,7 @@
                     <tbody>
 
                     @foreach($visitas as $visita)
+                        @if(!empty($visita->interno->n))
                             <tr>
                                 <td>{{$visita->nome}}</td>
                                 <td>{{$visita->documento}}</td>
@@ -62,6 +63,7 @@
                                     </form>
                                 </td>
                             </tr>
+                        @endif
                     @endforeach
 
                     </tbody>

@@ -49,21 +49,22 @@
                     <tbody>
 
                     @foreach($comportamentos as $comportamento)
-                        <tr>
-                            <td>{{$comportamento->numero}}</td>
-                            <td>{{$comportamento->interno->n}}-{{$comportamento->interno->nome_guerra}}</td>
-                            <td>{{$comportamento->pdi_status}}</td>
-                            <td>{{$comportamento->tipo_falta}}</td>
-                            <td>{{$comportamento->data_inicio}}</td>
-                            <td>{{$comportamento->data_termino}}</td>
-                            <td class="text-right">
-                                <a class="btn btn-blue icon-eye"
-                                   href="{{ route('pjmd.show', ['pjmd'=>$comportamento->id]) }}"></a>
-                                <a class="btn btn-green icon-pencil"
-                                   href="{{ route('pjmd.edit', ['pjmd'=>$comportamento->id]) }}"></a>
-                            </td>
-                        </tr>
-
+                        @if(!empty($comportamento->interno->n))
+                            <tr>
+                                <td>{{$comportamento->numero}}</td>
+                                <td>{{$comportamento->interno->n}}-{{$comportamento->interno->nome_guerra}}</td>
+                                <td>{{$comportamento->pdi_status}}</td>
+                                <td>{{$comportamento->tipo_falta}}</td>
+                                <td>{{$comportamento->data_inicio}}</td>
+                                <td>{{$comportamento->data_termino}}</td>
+                                <td class="text-right">
+                                    <a class="btn btn-blue icon-eye"
+                                       href="{{ route('pjmd.show', ['pjmd'=>$comportamento->id]) }}"></a>
+                                    <a class="btn btn-green icon-pencil"
+                                       href="{{ route('pjmd.edit', ['pjmd'=>$comportamento->id]) }}"></a>
+                                </td>
+                            </tr>
+                            @endif
                     @endforeach
 
                     </tbody>

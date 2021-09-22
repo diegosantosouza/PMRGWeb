@@ -33,13 +33,12 @@
                 <table id="dataTable" class="nowrap stripe"  style="width: 100% !important;">
                     <thead>
                     <tr>
-                        <th>Proc. Execução</th>
+                        <th>Processo</th>
                         <th>Nº Inquérito</th>
                         <th>Interno</th>
                         <th>Situação Proc.</th>
                         <th>Regime</th>
-                        <th>CPM/CPB</th>
-                        <th>Artigo</th>
+                        <th>Proc. Referência</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -52,8 +51,7 @@
                                 <td>{{$processo->interno->n}}</td>
                                 <td>{{$processo->sit_processual}}</td>
                                 <td>{{$processo->regime}}</td>
-                                <td>{{$processo->cpb_cpm}}</td>
-                                <td>{{$processo->cpb_cpm.',  Art. '.$processo->artigo}}</td>
+                                <td>{{$processo->processo_referencia}}</td>
                                 <td class="text-right">
                                     <a class="btn btn-blue icon-eye" href="{{ route('processos.show', ['processo'=>$processo->id]) }}"></a>
                                     <a class="btn btn-green icon-pencil" href="{{ route('processos.edit', ['processo'=>$processo->id]) }}" ></a>

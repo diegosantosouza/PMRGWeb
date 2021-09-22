@@ -54,7 +54,7 @@
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">*Nome:</span>
-                                    <input type="text" name="nome_completo" placeholder="Nome Completo"
+                                    <input type="text" name="nome_completo" placeholder="Nome Completo" class="firstuppercase"
                                            value="{{ old('nome_completo') }}"/>
                                 </label>
 
@@ -145,6 +145,20 @@
                                     <span class="legend">*Data de Nascimento:</span>
                                     <input type="tel" name="nascimento" class="mask-date"
                                            placeholder="Data de Nascimento" value="{{ old('nascimento') }}"/>
+                                </label>
+
+                                <label class="label">
+                                    <span class="legend">*Nacionalidade:</span>
+                                    <select name="nacionalidade" id="nacionalidade" class="select2">
+                                        <option
+                                            value="Brasileiro" {{ (old('nacionalidade') == 'Brasileiro' ? 'selected' : '') }}>
+                                            Brasileiro
+                                        </option>
+                                        <option
+                                            value="Estrangeiro" {{ (old('nacionalidade') == 'Estrangeiro' ? 'selected' : '') }}>
+                                            Estrangeiro
+                                        </option>
+                                    </select>
                                 </label>
 
                                 <label class="label">
@@ -317,7 +331,7 @@
 
                                 <label class="label">
                                     <span class="legend">Conjuge</span>
-                                    <input type="text" name="conjugue" placeholder="Nome Completo"
+                                    <input type="text" name="conjugue" placeholder="Nome Completo" class="firstuppercase"
                                            value="{{ old('conjugue') }}"/>
                                 </label>
                             </div>
@@ -487,13 +501,13 @@
                                     <div class="label_g2">
                                         <label class="label">
                                             <span class="legend">Mãe:</span>
-                                            <input type="text" name="mae"
+                                            <input type="text" name="mae" class="firstuppercase"
                                                    placeholder="Nome Completo" value="{{ old('mae') }}"/>
                                         </label>
 
                                         <label class="label">
                                             <span class="legend">Pai:</span>
-                                            <input type="text" name="pai"
+                                            <input type="text" name="pai" class="firstuppercase"
                                                    placeholder="Nome Completo" value="{{ old('pai') }}"/>
                                         </label>
                                     </div>
@@ -525,7 +539,7 @@
                                     <div class="label_g2">
                                         <label class="label">
                                             <span class="legend">Telefone de Contato:</span>
-                                            <input type="tel" name="telefone" class="mask-phone"
+                                            <input type="tel" name="telefone" class="mask-cell"
                                                    placeholder="Número do Telefonce com DDD"
                                                    value="{{ old('telefone') }}"/>
                                         </label>
@@ -558,7 +572,7 @@
 
                                         <label class="label">
                                             <span class="legend">*RE:</span>
-                                            <input type="text" name="re"
+                                            <input type="text" name="re" class="re-complete"
                                                    placeholder="Com digito" value="{{ old('re') }}"/>
                                         </label>
                                     </div>
@@ -1670,7 +1684,7 @@
                                     <div class="label_g4">
                                         <label class="label">
                                             <span class="legend">Alojamento:</span>
-                                            <select name="alojamento" class="select2">
+                                            <select name="alojamento" id="alojamento" class="select2">
                                                 @foreach($alojamentos as $alojamento)
                                                     <option
                                                         value="{{$alojamento->cela}}" {{ (old('alojamento') == $alojamento->cela ? 'selected' : '') }}>{{$alojamento->cela}}</option>
@@ -1680,16 +1694,7 @@
 
                                         <label class="label">
                                             <span class="legend">Estagio:</span>
-                                            <select name="estagio" class="select2">
-                                                <option value="1" {{ (old('estagio') == '1' ? 'selected' : '') }}>1
-                                                </option>
-                                                <option value="2" {{ (old('estagio') == '2' ? 'selected' : '') }}>2
-                                                </option>
-                                                <option value="3" {{ (old('estagio') == '3' ? 'selected' : '') }}>3
-                                                </option>
-                                                <option value="4" {{ (old('estagio') == '4' ? 'selected' : '') }}>4
-                                                </option>
-                                            </select>
+                                            <input type="text" name="estagio" id="estagio" placeholder="estagio" value="{{ old('estagio') }}"/>
                                         </label>
 
                                         <label class="label">
@@ -1816,7 +1821,7 @@
                                     <div class="label_g2">
                                         <label class="label">
                                             <span class="legend">Captura de Procurado:</span>
-                                            <select name="captura_procurado" class="select2">
+                                            <select name="captura_procurado" id="captura_procurado" class="select2">
                                                 <option
                                                     value="Não" {{ (old('captura_procurado') == 'Não' ? 'selected' : '') }}>
                                                     Não
@@ -1830,7 +1835,7 @@
 
                                         <label class="label">
                                             <span class="legend">Captura Estado:</span>
-                                            <select name="captura_estado" class="select2">
+                                            <select name="captura_estado" id="captura_estado" class="select2">
                                                 @foreach($estados as $estado)
                                                     <option
                                                         value="{{$estado->Nome}}" {{ (old('captura_estado') == $estado->Nome ? 'selected' : '') }}>{{$estado->Nome}}</option>
@@ -1979,9 +1984,9 @@
             {{--    }--}}
             {{--});--}}
 
-            // $('#estado').change(function () {
-            //     $('#municipio').val('');
-            // });
+            {{--$('#estado').change(function () {--}}
+            {{--    $('#municipio').val('');--}}
+            {{--});--}}
 
             $('.cidadeBusca').autocomplete({
                 minLength: 2,
@@ -2007,6 +2012,55 @@
                     return false;
                 }
             });
+
+            $('#alojamento').change(function () {
+                if ($(this).val() != '') {
+                    var value = $(this).val();
+                    // var estagio = $('#estagio').val();
+                    $.ajax({
+                        url: "{{ route('alojamentos.buscaestagio') }}",
+                        method: "POST",
+                        data: {value: value, _token: _token},
+                        success: function (result) {
+                            $('#estagio').val(result);
+                        }
+                    })
+                }
+            });
+
+            $('#alojamento').change(function () {
+                $('#estagio').val('');
+            });
+
+            //**Campos para UpperCase*/
+            $(".uppercase").on("input", function () {
+
+                $(this).val($(this).val().toUpperCase());
+            });
+
+            //**Primeira letra maiuscula*/
+            $(".firstuppercase").keypress(function (e) {
+                var str = $(this).val();
+                str = str.replace(/(^|\s|$)(?!de|do|d$)(.)/g, (geral, match1, match2) => match1 + match2.toUpperCase());
+                $(this).val(str);
+            });
+
+            //**Campo captura Desabilitado*/
+            function campoCaptura(){
+                if ($('select[id="captura_procurado"]').val() === 'Não') {
+                    $('select[id=captura_estado]').prop( "disabled", true );
+                }
+                else {
+                    $('select[id=captura_estado]').prop( "disabled", false );
+                }
+            }
+            campoCaptura();
+            $('select[id="captura_procurado"]').change(function (){
+                campoCaptura();
+            });
+
+            //**RE complete*/
+            $('.re-complete').mask('999999-A', {reverse: true});
         });
     </script>
 @endsection

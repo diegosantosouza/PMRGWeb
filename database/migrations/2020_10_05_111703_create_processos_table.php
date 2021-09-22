@@ -19,9 +19,9 @@ class CreateProcessosTable extends Migration
             $table->foreignId('id_interno')->references('id')->on('internos')->onDelete('cascade');
 
             $table->string('em_servico');
-            $table->string('processo_de_execucao')->unique()->nullable();
+            $table->string('processo_de_execucao')->nullable();
             $table->string('regime');
-            $table->string('n_inquerito');
+            $table->string('n_inquerito')->nullable();
             $table->string('multa')->nullable();
             $table->string('sit_processual');
             $table->string('reincidencia');

@@ -88,7 +88,7 @@
                             <div class="label_g2">
                                 <label class="label">
                                     <span class="legend">*Nome:</span>
-                                    <input type="text" name="nome_completo" placeholder="Nome Completo"
+                                    <input type="text" name="nome_completo" placeholder="Nome Completo" class="firstuppercase"
                                            value="{{ old('nome_completo') ?? $interno->nome_completo}}"/>
                                 </label>
 
@@ -197,6 +197,20 @@
                                     <input type="tel" name="nascimento" class="mask-date"
                                            placeholder="Data de Nascimento"
                                            value="{{ old('nascimento') ?? $interno->nascimento }}"/>
+                                </label>
+
+                                <label class="label">
+                                    <span class="legend">*Nacionalidade:</span>
+                                    <select name="nacionalidade" id="nacionalidade" class="select2">
+                                        <option
+                                            value="Brasileiro" {{ (old('nacionalidade') == 'Brasileiro' ? 'selected' : ($interno->nacionalidade == 'Brasileiro' ? 'selected' :'' )) }}>
+                                            Brasileiro
+                                        </option>
+                                        <option
+                                            value="Estrangeiro" {{ (old('nacionalidade') == 'Estrangeiro' ? 'selected' : ($interno->nacionalidade == 'Estrangeiro' ? 'selected' :'' )) }}>
+                                            Estrangeiro
+                                        </option>
+                                    </select>
                                 </label>
 
                                 <label class="label">
@@ -374,7 +388,7 @@
 
                                 <label class="label">
                                     <span class="legend">Conjuge</span>
-                                    <input type="text" name="conjugue" placeholder="Nome Completo"
+                                    <input type="text" name="conjugue" placeholder="Nome Completo" class="firstuppercase"
                                            value="{{ old('conjugue') ?? $interno->conjugue}}"/>
                                 </label>
                             </div>
@@ -548,14 +562,14 @@
                                         <label class="label">
                                             <span class="legend">Mãe:</span>
                                             <input type="text" name="mae"
-                                                   placeholder="Nome Completo"
+                                                   placeholder="Nome Completo" class="firstuppercase"
                                                    value="{{ old('mae') ?? $interno->mae}}"/>
                                         </label>
 
                                         <label class="label">
                                             <span class="legend">Pai:</span>
                                             <input type="text" name="pai"
-                                                   placeholder="Nome Completo"
+                                                   placeholder="Nome Completo" class="firstuppercase"
                                                    value="{{ old('pai') ?? $interno->pai}}"/>
                                         </label>
                                     </div>
@@ -589,7 +603,7 @@
                                     <div class="label_g2">
                                         <label class="label">
                                             <span class="legend">Telefone de Contato:</span>
-                                            <input type="tel" name="telefone" class="mask-phone"
+                                            <input type="tel" name="telefone" class="mask-cell"
                                                    placeholder="Número do Telefonce com DDD"
                                                    value="{{ old('telefone') ?? $interno->telefone}}"/>
                                         </label>
@@ -622,7 +636,7 @@
 
                                         <label class="label">
                                             <span class="legend">*RE:</span>
-                                            <input type="text" name="re"
+                                            <input type="text" name="re" class="re-complete"
                                                    placeholder="Com digito" value="{{ old('re') ?? $interno->re}}"/>
                                         </label>
                                     </div>
@@ -1742,7 +1756,7 @@
                                     <div class="label_g4">
                                         <label class="label">
                                             <span class="legend">Alojamento:</span>
-                                            <select name="alojamento" class="select2">
+                                            <select name="alojamento" id="alojamento" class="select2">
                                                 @foreach($alojamentos as $alojamento)
                                                     <option
                                                         value="{{$alojamento->cela}}" {{ (old('alojamento') == $alojamento->cela ? 'selected' : ($interno->alojamento == $alojamento->cela ? 'selected' :'' )) }}>{{$alojamento->cela}}</option>
@@ -1752,24 +1766,8 @@
 
                                         <label class="label">
                                             <span class="legend">Estagio:</span>
-                                            <select name="estagio" class="select2">
-                                                <option
-                                                    value="1" {{ (old('estagio') == '1' ? 'selected' : ($interno->estagio == '1' ? 'selected' :'' )) }}>
-                                                    1
-                                                </option>
-                                                <option
-                                                    value="2" {{ (old('estagio') == '2' ? 'selected' : ($interno->estagio == '2' ? 'selected' :'' )) }}>
-                                                    2
-                                                </option>
-                                                <option
-                                                    value="3" {{ (old('estagio') == '3' ? 'selected' : ($interno->estagio == '3' ? 'selected' :'' )) }}>
-                                                    3
-                                                </option>
-                                                <option
-                                                    value="4" {{ (old('estagio') == '4' ? 'selected' : ($interno->estagio == '4' ? 'selected' :'' )) }}>
-                                                    4
-                                                </option>
-                                            </select>
+                                            <input type="text" name="estagio" id="estagio" placeholder="estagio"
+                                                   value="{{ old('estagio') ?? $interno->estagio }}"/>
                                         </label>
 
                                         <label class="label">
@@ -1895,7 +1893,7 @@
                                     <div class="label_g2">
                                         <label class="label">
                                             <span class="legend">Captura de Procurado:</span>
-                                            <select name="captura_procurado" class="select2">
+                                            <select name="captura_procurado" id="captura_procurado" class="select2">
                                                 <option
                                                     value="Não" {{ (old('captura_procurado') == 'Não' ? 'selected' : ($interno->captura_procurado == 'Não' ? 'selected' : '' ))}}>
                                                     Não
@@ -1910,7 +1908,7 @@
 
                                         <label class="label">
                                             <span class="legend">Captura Estado:</span>
-                                            <select name="captura_estado" class="select2">
+                                            <select name="captura_estado" id="captura_estado" class="select2">
                                                 @foreach($estados as $estado)
                                                     <option
                                                         value="{{$estado->Nome}}" {{ (old('captura_estado') == $estado->Nome ? 'selected' : ($interno->captura_estado == $estado->Nome ? 'selected' : '' )) }}>{{$estado->Nome}}</option>
@@ -2020,9 +2018,18 @@
                             @if(!empty($interno->processos))
                                 @foreach($interno->processos as $processo)
                                     <div class="app_collapse">
-
                                         <div class="app_collapse_header collapse">
-                                            <h3>Nº{{$processo->processo_de_execucao}}</h3>
+                                            <div>
+                                                <h3>
+                                                    @if(!empty($processo->processo_de_execucao))
+                                                        Processo Nº {{$processo->processo_de_execucao}}
+                                                    @else
+                                                        Nº Inquérito {{$processo->n_inquerito}}
+                                                    @endif </h3>@if(!empty($processo->processo_referencia))<i
+                                                    class="text-orange">Proc.
+                                                    Referência: {{$processo->processo_referencia}}</i>@endif
+                                            </div>
+                                            <p class="">Situação: {{$processo->sit_processual}}</p>
                                             <span class="icon-plus-circle icon-notext"></span>
                                         </div>
 
@@ -2032,6 +2039,13 @@
                                                     <span class="legend">Crime em durante o serviço:</span>
                                                     <input type="text" name="em_servico"
                                                            value="{{ $processo->em_servico}}"/>
+                                                </label>
+                                                <label class="label">
+                                                    <span class="legend">Processo Referência:</span>
+                                                    <input type="text" name="processo_referencia"
+                                                           placeholder="Processo de Referencia"
+                                                           class="processo-execucao"
+                                                           value="{{ $processo->processo_referencia }}"/>
                                                 </label>
                                             </div>
 
@@ -2143,6 +2157,26 @@
                                                            value="{{ $processo->exticao_punibilidade}}"/>
                                                 </label>
                                             </div>
+                                            <table class="table bg-white" id="artigos">
+                                                <thead>
+                                                <th>Legislação</th>
+                                                <th>Leis Especiais</th>
+                                                <th>Artigo</th>
+                                                <th>Descrição</th>
+                                                </thead>
+                                                <tbody class="text-center" id="artigosRows">
+                                                @foreach($interno->legislacao as $legislacao)
+                                                    @if($legislacao->id_processo == $processo->id)
+                                                        <tr>
+                                                            <td>{{$legislacao->legislacao}}</td>
+                                                            <td>{{$legislacao->leis_especiais}}</td>
+                                                            <td>{{$legislacao->artigo}}</td>
+                                                            <td>{{$legislacao->descricao}}</td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 @endforeach
@@ -2473,6 +2507,55 @@
                     return false;
                 }
             });
+
+            $('#alojamento').change(function () {
+                if ($(this).val() != '') {
+                    var value = $(this).val();
+                    // var estagio = $('#estagio').val();
+                    $.ajax({
+                        url: "{{ route('alojamentos.buscaestagio') }}",
+                        method: "POST",
+                        data: {value: value, _token: _token},
+                        success: function (result) {
+                            $('#estagio').val(result);
+                        }
+                    })
+                }
+            });
+
+            $('#alojamento').change(function () {
+                $('#estagio').val('');
+            });
+
+            //**Campos para UpperCase*/
+            $(".uppercase").on("input", function () {
+
+                $(this).val($(this).val().toUpperCase());
+            });
+
+            //**Primeira letra maiuscula*/
+            $(".firstuppercase").keypress(function (e) {
+                var str = $(this).val();
+                str = str.replace(/(^|\s|$)(?!de|do|d$)(.)/g, (geral, match1, match2) => match1 + match2.toUpperCase());
+                $(this).val(str);
+            });
+
+            //**Campo captura Desabilitado*/
+            function campoCaptura(){
+                if ($('select[id="captura_procurado"]').val() === 'Não') {
+                    $('select[id=captura_estado]').prop( "disabled", true );
+                }
+                else {
+                    $('select[id=captura_estado]').prop( "disabled", false );
+                }
+            }
+            campoCaptura();
+            $('select[id="captura_procurado"]').change(function (){
+                campoCaptura();
+            });
+
+            //**RE complete*/
+            $('.re-complete').mask('999999-A', {reverse: true});
         });
     </script>
 @endsection

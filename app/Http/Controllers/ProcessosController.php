@@ -33,9 +33,8 @@ class ProcessosController extends Controller
     {
         if (Auth::user()->penal == 1 ) {
             $interno = Interno::where('id', $interno)->first();
-            $artigos = Artigos::select('artigo', 'descrição')->get();
             $estados = Estado::select('Nome', 'Uf')->orderBy('Nome', 'asc')->get();
-            return view('admin.penal.processos.create', ['interno' => $interno, 'estados' => $estados, 'artigos' => $artigos]);
+            return view('admin.penal.processos.create', ['interno' => $interno, 'estados' => $estados]);
         }
         return redirect()->back()->with(['color' => 'orange', 'message' => 'Usuário não possui permissão.']);
     }
@@ -55,7 +54,7 @@ class ProcessosController extends Controller
             if (!$processo->save()) {
                 return redirect()->back()->withInput()->withErrors();
             }
-            return redirect()->route('processos.index')->with(['color' => 'green', 'message' => 'Cadastrado com sucesso!']);
+            return redirect()->route('processos.edit',['processo'=>$processo->id])->with(['color' => 'green', 'message' => 'Cadastrado com sucesso!']);
         }
         return redirect()->back()->with(['color' => 'orange', 'message' => 'Usuário não possui permissão.']);
     }
@@ -82,9 +81,8 @@ class ProcessosController extends Controller
     {
         if (Auth::user()->penal == 1 ) {
             $processo = Processos::where('id', $id)->first();
-            $artigos = Artigos::select('artigo', 'descrição')->get();
             $estados = Estado::select('Nome', 'Uf')->orderBy('Nome', 'asc')->get();
-            return view('admin.penal.processos.edit', ['processo' => $processo, 'estados' => $estados, 'artigos' => $artigos]);
+            return view('admin.penal.processos.edit', ['processo' => $processo, 'estados' => $estados]);
         }
         return redirect()->back()->with(['color' => 'orange', 'message' => 'Usuário não possui permissão.']);
     }

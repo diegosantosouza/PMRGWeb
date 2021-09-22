@@ -10,6 +10,7 @@ use App\ComportamentoArquivos;
 use App\Estado;
 use App\Interno;
 use App\InternoArquivos;
+use App\MovCarcerario;
 use App\Municipio;
 use App\Processos;
 use App\Support\Cropper;
@@ -40,6 +41,21 @@ class InternosController extends Controller
 //        }
 //        echo $output;
 //    }
+    public function numerosVagos()
+    {
+        //** Número interno vazios */
+        $internos = Interno::pluck('n');
+        $max = Interno::select('n')->max('n');
+        $numeros = array();
+
+        for ($i = 1; $i <= $max+100; $i++) {
+            if (!$internos->contains($i)) {
+                array_unshift($numeros, $i);
+            }
+        }
+        sort($numeros);
+        return $numeros;
+    }
 
     public function internoBusca(Request $request)
     {
@@ -47,7 +63,7 @@ class InternosController extends Controller
         $autocomplates = Interno::orderby('n', 'asc')->select(['n', 'nome_guerra'])->where('n', 'like', $search . '%')->limit(5)->get();
         $response = array();
         foreach ($autocomplates as $autocomplate) {
-            $response[] = array("value" => $autocomplate->n, "label" => $autocomplate->n.'-'.$autocomplate->nome_guerra);
+            $response[] = array("value" => $autocomplate->n, "label" => $autocomplate->n . '-' . $autocomplate->nome_guerra);
         }
         echo json_encode($response);
     }
@@ -79,17 +95,7 @@ class InternosController extends Controller
         if (Auth::user()->penal == 1) {
             $estados = Estado::select('Nome', 'Uf')->orderBy('Nome', 'asc')->get();
             $alojamentos = Alojamentos::where('vagas', '>', 0)->select('cela')->get();
-
-            //** Número interno vazios */
-            $internos = Interno::pluck('n');
-            $max = Interno::select('n')->max('n');
-            $numeros = array($max + 1, $max + 2, $max + 3);
-
-            for ($i = 1; $i <= $max; $i++) {
-                if (!$internos->contains($i)) {
-                    array_unshift($numeros, $i);
-                }
-            }
+            $numeros = $this->numerosVagos();
             return view('admin.internos.create', ['estados' => $estados, 'numeros' => $numeros, 'alojamentos' => $alojamentos]);
         }
         return redirect()->back()->with(['color' => 'orange', 'message' => 'Usuário não possui permissão.']);
@@ -105,6 +111,10 @@ class InternosController extends Controller
     {
         if (Auth::user()->penal == 1) {
             $interno = Interno::create($request->all());
+            $interno->comportamento_status = 'Bom';
+            $date = new \DateTime();
+            $date->add(new \DateInterval('P365D'));
+            $interno->comportamento_data = $date;
 
             if (!empty($request->file('foto'))) {
                 $interno->foto = $request->file('foto')->storeAs('interno/' . $interno->re, $request->file('foto')->getClientOriginalName());
@@ -141,8 +151,7 @@ class InternosController extends Controller
      */
     public function show($id)
     {
-        $interno = Interno::where('id', $id)->with(['trabalho', 'ensino', 'processos', 'arquivos', 'visitas', 'advogados', 'comportamento'])->withCount(['processos', 'arquivos', 'visitas', 'advogados', 'comportamento'])->first();
-
+        $interno = Interno::where('id', $id)->with(['trabalho', 'ensino', 'processos', 'arquivos', 'visitas', 'advogados', 'comportamento', 'movcarcerario', 'legislacao'])->withCount(['processos', 'arquivos', 'visitas', 'advogados', 'comportamento'])->first();
         /* calcular idade*/
         $hoje = new \DateTime();
         $nascimento = new \DateTime($interno->nascimento);
@@ -160,20 +169,10 @@ class InternosController extends Controller
     public function edit($id)
     {
         if (Auth::user()->penal == 1) {
-            $interno = Interno::where('id', $id)->with(['processos', 'arquivos', 'visitas', 'advogados'])->withCount(['processos', 'arquivos', 'visitas', 'advogados'])->first();
+            $interno = Interno::where('id', $id)->with(['processos', 'arquivos', 'visitas', 'advogados', 'movcarcerario', 'legislacao'])->withCount(['processos', 'arquivos', 'visitas', 'advogados'])->first();
             $estados = Estado::select('Nome', 'Uf')->orderBy('Nome', 'asc')->get();
             $alojamentos = Alojamentos::where('vagas', '>', 0)->select('cela')->get();
-
-            //** Número interno vazios */
-            $internos = Interno::pluck('n');
-            $max = Interno::select('n')->max('n');
-            $numeros = array($max + 1, $max + 2, $max + 3);
-
-            for ($i = 1; $i <= $max; $i++) {
-                if (!$internos->contains($i)) {
-                    array_unshift($numeros, $i);
-                }
-            }
+            $numeros = $this->numerosVagos();
             return view('admin.internos.edit', ['interno' => $interno, 'estados' => $estados, 'numeros' => $numeros, 'alojamentos' => $alojamentos]);
         }
         return redirect()->back()->with(['color' => 'orange', 'message' => 'Usuário não possui permissão.']);
@@ -195,6 +194,16 @@ class InternosController extends Controller
                 Storage::delete($interno->foto);
                 Cropper::flush($interno->foto);
                 $interno->foto = '';
+            }
+            if (($request->alojamento != $interno->alojamento) || ($request->estagio != $interno->estagio)) {
+                $movcarcerario = new MovCarcerario();
+                $movcarcerario->id_interno = $request->id;
+                $movcarcerario->celaanterior = $interno->alojamento;
+                $movcarcerario->estagioanterior = $interno->estagio;
+                $movcarcerario->celaatual = $request->alojamento;
+                $movcarcerario->estagioatual = $request->estagio;
+                $movcarcerario->save();
+
             }
 
             $interno->fill($request->all());
@@ -263,7 +272,7 @@ class InternosController extends Controller
 
     public function excluidosShow($id)
     {
-        $interno = Interno::onlyTrashed()->where('id', $id)->with(['trabalho', 'ensino', 'processos', 'arquivos', 'visitas', 'advogados', 'comportamento'])->withCount(['processos', 'arquivos', 'visitas', 'advogados', 'comportamento'])->first();
+        $interno = Interno::onlyTrashed()->where('id', $id)->with(['trabalho', 'ensino', 'processos', 'arquivos', 'visitas', 'advogados', 'comportamento', 'movcarcerario'])->withCount(['processos', 'arquivos', 'visitas', 'advogados', 'comportamento'])->first();
         /* calcular idade*/
         $hoje = new \DateTime();
         $nascimento = new \DateTime($interno->nascimento);
@@ -276,21 +285,11 @@ class InternosController extends Controller
     {
         if (Auth::user()->penal == 1) {
 
-            $interno = Interno::onlyTrashed()->where('id', $id)->with(['processos', 'arquivos', 'visitas', 'advogados'])->withCount(['processos', 'arquivos', 'visitas', 'advogados'])->first();
+            $interno = Interno::onlyTrashed()->where('id', $id)->with(['processos', 'arquivos', 'visitas', 'advogados', 'movcarcerario'])->withCount(['processos', 'arquivos', 'visitas', 'advogados'])->first();
             $estados = Estado::select('Nome', 'Uf')->orderBy('Nome', 'asc')->get();
             $alojamentos = Alojamentos::where('vagas', '>', 0)->select('cela')->get();
 
-            //** Número interno vazios */
-            $internos = Interno::pluck('n');
-            $max = Interno::select('n')->max('n');
-            $numeros = array($max + 1, $max + 2, $max + 3);
-
-            for ($i = 1; $i <= $max; $i++) {
-                if (!$internos->contains($i)) {
-                    array_unshift($numeros, $i);
-                }
-            }
-
+            $numeros = $this->numerosVagos();
             return view('admin.internos.excluidosedit', ['interno' => $interno, 'estados' => $estados, 'numeros' => $numeros, 'alojamentos' => $alojamentos]);
         }
         return redirect()->back()->with(['color' => 'orange', 'message' => 'Usuário não possui permissão.']);
@@ -367,6 +366,11 @@ class InternosController extends Controller
                 }
                 $comportamento->delete();
             }
+            $deleteMovCarcerario = MovCarcerario::where('id_interno', $id)->get();
+            foreach ($deleteMovCarcerario as $movcarcerario) {
+                $movcarcerario->delete();
+            }
+
             $deleteArquivos = InternoArquivos::where('interno_id', $id)->get();
             foreach ($deleteArquivos as $arquivo) {
                 Storage::delete($arquivo->path);

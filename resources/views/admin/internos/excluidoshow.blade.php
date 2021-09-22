@@ -132,6 +132,11 @@
                             </label>
 
                             <label class="label">
+                                <span class="legend">*Nacionalidade:</span>
+                                <input type="text" name="nacionalidade" value="{{$interno->nacionalidade }}"/>
+                            </label>
+
+                            <label class="label">
                                 <span class="legend">*Estado:</span>
                                 <input type="tel" name="estado" value="{{$interno->estado }}"/>
                             </label>
@@ -292,7 +297,7 @@
                                 <div class="label_g2">
                                     <label class="label">
                                         <span class="legend">Telefone de Contato:</span>
-                                        <input type="tel" name="telefone" class="mask-phone" value="{{$interno->telefone}}"/>
+                                        <input type="tel" name="telefone" class="mask-cell" value="{{$interno->telefone}}"/>
                                     </label>
                                     <label class="label">
                                         <span class="legend">Acidente Morte Doença:</span>
@@ -467,7 +472,17 @@
                             @foreach($interno->processos as $processo)
                                 <div class="app_collapse mt-2">
                                     <div class="app_collapse_header collapse">
-                                        <h3>Nº{{$processo->processo_de_execucao}}</h3>
+                                        <div>
+                                            <h3>
+                                                @if(!empty($processo->processo_de_execucao))
+                                                    Processo Nº {{$processo->processo_de_execucao}}
+                                                @else
+                                                    Nº Inquérito {{$processo->n_inquerito}}
+                                                @endif </h3>@if(!empty($processo->processo_referencia))<i
+                                                class="text-orange">Proc.
+                                                Referência: {{$processo->processo_referencia}}</i>@endif
+                                        </div>
+                                        <p class="">Situação: {{$processo->sit_processual}}</p>
                                         <span class="icon-plus-circle icon-notext"></span>
                                     </div>
                                     <div class="app_collapse_content d-none">
@@ -476,11 +491,18 @@
                                                 <span class="legend">Crime em durante o serviço:</span>
                                                 <input type="text" name="em_servico" value="{{ $processo->em_servico}}"/>
                                             </label>
+                                            <label class="label">
+                                                <span class="legend">Processo Referência:</span>
+                                                <input type="text" name="processo_referencia"
+                                                       placeholder="Processo de Referencia"
+                                                       class="processo-execucao"
+                                                       value="{{ $processo->processo_referencia }}"/>
+                                            </label>
                                         </div>
 
                                         <div class="label_g2">
                                             <label class="label">
-                                                <span class="legend">Processo de Execução:</span>
+                                                <span class="legend">Processo:</span>
                                                 <input type="text" name="processo_de_execucao" value="{{ $processo->processo_de_execucao }}"/>
                                             </label>
 
@@ -562,7 +584,6 @@
                                             </label>
                                         </div>
 
-
                                         <div class="label_g2">
                                             <label class="label">
                                                 <span class="legend">Vara Comarca:</span>
@@ -573,6 +594,27 @@
                                                 <input type="text" name="exticao_punibilidade" value="{{ $processo->exticao_punibilidade}}"/>
                                             </label>
                                         </div>
+
+                                        <table class="table bg-white" id="artigos">
+                                            <thead>
+                                            <th>Legislação</th>
+                                            <th>Leis Especiais</th>
+                                            <th>Artigo</th>
+                                            <th>Descrição</th>
+                                            </thead>
+                                            <tbody class="text-center" id="artigosRows">
+                                            @foreach($interno->legislacao as $legislacao)
+                                                @if($legislacao->id_processo == $processo->id)
+                                                    <tr>
+                                                        <td>{{$legislacao->legislacao}}</td>
+                                                        <td>{{$legislacao->leis_especiais}}</td>
+                                                        <td>{{$legislacao->artigo}}</td>
+                                                        <td>{{$legislacao->descricao}}</td>
+                                                    </tr>
+                                                @endif
+                                            @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             @endforeach
@@ -727,7 +769,7 @@
                     </div>
 
                     <div id="empregador" class="d-none">
-                        @if(!empty($interno->empregador))
+                        @if(!empty($interno->trabalho))
                             <div class="label_g2 mt-1">
                                 <label class="label">
                                     <span class="legend">Empregador:</span>
@@ -770,6 +812,11 @@
                                                 <span class="legend">*Número do PDI:</span>
                                                 <input type="text" name="numero" placeholder="Exemplo 123/20/2020" value="{{ $comportamento->numero }}"/>
                                             </label>
+
+                                            <label class="label">
+                                                <span class="legend">*Tipo de falta:</span>
+                                                <input type="text" name="tipo_falta" value="{{ $comportamento->tipo_falta}}"/>
+                                            </label>
                                         </div>
 
                                         <div class="label_g2">
@@ -779,8 +826,8 @@
                                             </label>
 
                                             <label class="label">
-                                                <span class="legend">*Tipo de falta:</span>
-                                                <input type="text" name="tipo_falta" value="{{ $comportamento->tipo_falta}}"/>
+                                                <span class="legend">Outra falta:</span>
+                                                <input type="text" name="outra_falta" value="{{ $comportamento->outra_falta}}"/>
                                             </label>
                                         </div>
 

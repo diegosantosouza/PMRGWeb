@@ -69,7 +69,7 @@
                         <div class="label_g2">
                             <label class="label">
                                 <span class="legend">*Nome:</span>
-                                <input type="text" name="nome" placeholder="Nome Completo" value="{{ old('nome') }}"/>
+                                <input type="text" name="nome" class="firstuppercase" placeholder="Nome Completo" value="{{ old('nome') }}"/>
                             </label>
 
                             <label class="label">
@@ -162,11 +162,9 @@
 
                             <label class="label">
                                 <span class="legend">*Naturalidade:</span>
-                                <select name="naturalidade" class="select2">
-                                    @foreach($municipios as $municipio)
-                                        <option value="{{$municipio->Nome}}/{{$municipio->Uf}}" {{ (old('naturalidade') == $municipio->Nome."/".$municipio->Uf ? 'selected' : '') }}>{{$municipio->Nome}}/{{$municipio->Uf}}</option>
-                                    @endforeach
-                                </select>
+                                <input name="naturalidade" class="cidadeBusca"
+                                    value="{{ old('naturalidade') }}"
+                                    placeholder="Buscar cidade">
                             </label>
 
                             <label class="label">
@@ -189,13 +187,13 @@
                                 <div class="label_g2">
                                     <label class="label">
                                         <span class="legend">Mãe:</span>
-                                        <input type="text" name="mae"
+                                        <input type="text" name="mae" class="firstuppercase"
                                                placeholder="Nome Completo" value="{{ old('mae') }}"/>
                                     </label>
 
                                     <label class="label">
                                         <span class="legend">Pai:</span>
-                                        <input type="text" name="pai"
+                                        <input type="text" name="pai" class="firstuppercase"
                                                placeholder="Nome Completo" value="{{ old('pai') }}"/>
                                     </label>
                                 </div>
@@ -218,18 +216,16 @@
 
                                     <label class="label">
                                         <span class="legend">*Cidade:</span>
-                                        <select name="cidade" class="select2">
-                                            @foreach($municipios as $municipio)
-                                                <option value="{{$municipio->Nome}}/{{$municipio->Uf}}" {{ (old('cidade') == $municipio->Nome."/".$municipio->Uf ? 'selected' : '') }}>{{$municipio->Nome}}/{{$municipio->Uf}}</option>
-                                            @endforeach
-                                        </select>
+                                        <input name="cidade" class="cidadeBusca"
+                                        value="{{ old('cidade') }}"
+                                        placeholder="Buscar cidade">
                                     </label>
                                 </div>
 
                                 <div class="label_g2">
                                     <label class="label">
                                         <span class="legend">*Telefone de Contato:</span>
-                                        <input type="tel" name="celular" class="mask-phone"
+                                        <input type="tel" name="celular" class="mask-cell"
                                                placeholder="Número do Telefonce com DDD" value="{{ old('celular') }}"/>
                                     </label>
 
@@ -303,5 +299,45 @@
         </div>
     </div>
 </section>
+@endsection
+
+@section('js')
+    <script src="{{ url(asset('backend/assets/js/jquery-ui.min.js')) }}"></script>
+    <script>
+        $(document).ready(function () {
+            var _token = $('input[name="_token"]').val();
+            //**Primeira letra maiuscula*/
+            $(".firstuppercase").keypress(function (e) {
+                var str = $(this).val();
+                str = str.replace(/(^|\s|$)(?!de|do|d$)(.)/g, (geral, match1, match2) => match1 + match2.toUpperCase());
+                $(this).val(str);
+            });
+
+            $('.cidadeBusca').autocomplete({
+                minLength: 2,
+                delay: 500,
+                source: function (request, response) {
+                    // Fetch data
+                    $.ajax({
+                        url: "{{route('interno.cidadeBusca')}}",
+                        type: 'post',
+                        dataType: "json",
+                        data: {
+                            _token: _token,
+                            cidade: request.term
+                        },
+                        success: function (data) {
+                            response(data);
+                        }
+                    });
+                },
+                select: function (event, ui) {
+                    $(this).val(ui.item.label);
+                    $(this).val(ui.item.value);
+                    return false;
+                }
+            });
+        });
+    </script>
 @endsection
 

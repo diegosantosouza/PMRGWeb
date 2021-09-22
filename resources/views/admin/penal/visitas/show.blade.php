@@ -171,7 +171,7 @@
                                 <div class="label_g2">
                                     <label class="label">
                                         <span class="legend">*Telefone de Contato:</span>
-                                        <input type="tel" name="celular" class="mask-phone" value="{{$visita->celular}}"/>
+                                        <input type="tel" name="celular" class="mask-cell" value="{{$visita->celular}}"/>
                                     </label>
 
                                     <label class="label">

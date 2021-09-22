@@ -11,7 +11,7 @@
                 <ul>
                     <li><a href="{{ route('admin.inicio') }}">Início</a></li>
                     <li class="separator icon-angle-right icon-notext"></li>
-                    <li><a href="{{ route('visita.index') }}">Pjmd</a></li>
+                    <li><a href="{{ route('pjmd.index') }}">Pjmd</a></li>
                     <li class="separator icon-angle-right icon-notext"></li>
                     <li><a href="" class="text-orange">Editar PDI</a></li>
                 </ul>
@@ -63,17 +63,6 @@
                                 <span class="legend">*Número do PDI:</span>
                                 <input type="text" name="numero" placeholder="Exemplo 123/20/2020" value="{{ old('numero') ?? $comportamento->numero }}"/>
                             </label>
-                        </div>
-
-                        <div class="label_g2">
-                            <label class="label">
-                                <span class="legend">*PDI Status:</span>
-                                <select name="pdi_status" class="select2">
-                                    <option value="Instrução" {{ (old('pdi_status') == 'Instrução' ? 'selected' : ($comportamento->pdi_status == 'Instrução' ? 'selected' : '')) }}>Instrução</option>
-                                    <option value="Finalizado" {{ (old('pdi_status') == 'Finalizado' ? 'selected' : ($comportamento->pdi_status == 'Finalizado' ? 'selected' : '')) }}>Finalizado</option>
-                                </select>
-                            </label>
-
                             <label class="label">
                                 <span class="legend">*Tipo de falta:</span>
                                 <select name="tipo_falta" class="select2">
@@ -86,13 +75,34 @@
 
                         <div class="label_g2">
                             <label class="label">
+                                <span class="legend">*PDI Status:</span>
+                                <select name="pdi_status" class="select2">
+                                    <option value="Instrução" {{ (old('pdi_status') == 'Instrução' ? 'selected' : ($comportamento->pdi_status == 'Instrução' ? 'selected' : '')) }}>Instrução</option>
+                                    <option value="Perda de objeto" {{ (old('pdi_status') == 'Perda de objeto' ? 'selected' : ($comportamento->pdi_status == 'Perda de objeto' ? 'selected' : '')) }}>Perda de objeto</option>
+                                    <option value="Finalizado" {{ (old('pdi_status') == 'Finalizado' ? 'selected' : ($comportamento->pdi_status == 'Finalizado' ? 'selected' : '')) }}>Finalizado</option>
+                                </select>
+                            </label>
+
+                            <label class="label">
+                                <span class="legend">Outra falta:</span>
+                                <select name="outra_falta" class="select2">
+                                    <option value="vazio" {{ (old('outra_falta') == 'vazio' ? 'selected' : ($comportamento->outra_falta == 'vazio' ? 'selected' : '')) }}>vazio</option>
+                                    <option value="Leve" {{ (old('outra_falta') == 'Leve' ? 'selected' : ($comportamento->outra_falta == 'Leve' ? 'selected' : '')) }}>Leve</option>
+                                    <option value="Média" {{ (old('outra_falta') == 'Média' ? 'selected' : ($comportamento->outra_falta == 'Média' ? 'selected' : '')) }}>Média</option>
+                                    <option value="Grave" {{ (old('outra_falta') == 'Grave' ? 'selected' : ($comportamento->outra_falta == 'Grave' ? 'selected' : '')) }}>Grave</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <div class="label_g2">
+                            <label class="label">
                                 <span class="legend">*Data de Início:</span>
-                                <input type="tel" name="data_inicio" class="mask-date" value="{{ old('data_inicio') ?? $comportamento->data_inicio }}"/>
+                                <input type="date" name="data_inicio" class="" value="{{ old('data_inicio') ?? date('Y-m-d', strtotime($comportamento->data_inicio)) }}"/>
                             </label>
 
                             <label class="label">
                                 <span class="legend">*Data de Término:</span>
-                                <input type="tel" name="data_termino" class="mask-date" value="{{ old('data_termino') ?? $comportamento->data_termino }}"/>
+                                <input type="date" name="data_termino" class=""  @if(!empty($comportamento->data_termino)) value="{{date('Y-m-d', strtotime($comportamento->data_termino))}}"/>@endif
                             </label>
                         </div>
 

@@ -47,7 +47,7 @@ class ComportamentoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ComportamentoRequest $request)
+    public function store(Request $request)
     {
         if (Auth::user()->pjmd == 1 ) {
             $comportamento = Comportamento::create($request->all());
@@ -76,9 +76,10 @@ class ComportamentoController extends Controller
     public function show($id)
     {
         $comportamento = Comportamento::where('id', $id)->with(['arquivos', 'interno'])->first();
-        $documentos= $comportamento->arquivos()->get();
+//        dd($comportamento);
+//        $documentos= $comportamento->arquivos;
 
-        return view('admin.pjmd.show', ['comportamento'=>$comportamento, 'documentos'=>$documentos]);
+        return view('admin.pjmd.show', ['comportamento'=>$comportamento]);
 
     }
 
@@ -109,7 +110,6 @@ class ComportamentoController extends Controller
     {
         if (Auth::user()->pjmd == 1 ) {
             $comportamento = Comportamento::where('id', $id)->with('interno')->first();
-            $interno = $comportamento->interno->select('re')->first();
             $comportamento->fill($request->all());
             $comportamento->save();
             if (!$comportamento->save()) {
@@ -119,7 +119,7 @@ class ComportamentoController extends Controller
                 foreach ($request->allFiles()['arquivos'] as $arquivos) {
                     $arquivosComportamento = new ComportamentoArquivos();
                     $arquivosComportamento->comportamento_id = $comportamento->id;
-                    $arquivosComportamento->path = $arquivos->storeAs('interno/' . $interno->re . '/' . 'comportamento/' . $comportamento->id . '/' . 'documentos_comportamento', $arquivos->getClientOriginalName());
+                    $arquivosComportamento->path = $arquivos->storeAs('interno/' . $comportamento->interno->re . '/' . 'comportamento/' . $comportamento->id . '/' . 'documentos_comportamento', $arquivos->getClientOriginalName());
                     $arquivosComportamento->save();
                     unset($arquivosComportamento);
                 }
@@ -139,7 +139,13 @@ class ComportamentoController extends Controller
     {
         if (Auth::user()->pjmd == 1 ) {
             $comportamento = Comportamento::where('id', $id)->with('arquivos')->first();
-            Storage::delete($comportamento->arquivos->path);
+//            dd($comportamento);
+            if (!empty($comportamento->arquivos)){
+                foreach ($comportamento->arquivos as $arquivo) {
+                    Storage::delete($arquivo->path);
+                    $arquivo->delete();
+                }
+            }
             $comportamento->delete();
             return redirect()->route('pjmd.index')->with((['color' => 'green', 'message' => 'Comportamento deletado!']));
         }

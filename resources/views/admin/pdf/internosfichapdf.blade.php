@@ -46,7 +46,8 @@
                 <p class="my-auto flex-fill">Nome/Guerra:{{$interno->nome_guerra}}</p>
             </div>
             <div class="row d-flex">
-                <p class="my-auto flex-fill">Cidade:{{$interno->natural}}</p>
+                <p class="my-auto flex-fill">Nacionalidade:{{$interno->nacionalidade}}</p>
+                <p class="my-auto flex-fill">Natural:{{$interno->natural}}</p>
                 <p class="my-auto flex-fill">Estado:{{$interno->estado}}</p>
             </div>
             <div class="row d-flex">

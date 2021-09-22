@@ -13,7 +13,7 @@
                     <li class="separator icon-angle-right icon-notext"></li>
                     <li><a href="{{ route('pjmd.index') }}">Pjmd</a></li>
                     <li class="separator icon-angle-right icon-notext"></li>
-                    <li><a href="" class="text-orange">Criar PDI</a></li>
+                    <li><a class="text-orange">Criar PDI</a></li>
                 </ul>
             </nav>
         </div>
@@ -49,22 +49,12 @@
                 <div class="nav_tabs_content">
                     <div id="dados_cadastrais">
 
-                        <input type="hidden" name="id_interno" value="{{$interno->id}}">
+                        <input type="hidden" name="id_interno" value="{{ old('id_interno') ?? $interno->id}}">
 
                         <div class="label_g2">
                             <label class="label">
                                 <span class="legend">*Número do PDI:</span>
-                                <input type="text" name="numero" placeholder="Exemplo 123/20/2020" value="{{ old('numero') }}"/>
-                            </label>
-                        </div>
-
-                        <div class="label_g2">
-                            <label class="label">
-                                <span class="legend">*PDI Status:</span>
-                                <select name="pdi_status" class="select2">
-                                    <option value="Instrução" {{ (old('pdi_status') == 'Instrução' ? 'selected' : '') }}>Instrução</option>
-                                    <option value="Finalizado" {{ (old('pdi_status') == 'Finalizado' ? 'selected' : '') }}>Finalizado</option>
-                                </select>
+                                <input type="text" name="numero" required="required" placeholder="Exemplo 123/20/2020" value="{{ old('numero') }}"/>
                             </label>
 
                             <label class="label">
@@ -79,13 +69,38 @@
 
                         <div class="label_g2">
                             <label class="label">
+                                <span class="legend">*PDI Status:</span>
+                                <select name="pdi_status" class="select2">
+                                    <option value="Instrução" {{ (old('pdi_status') == 'Instrução' ? 'selected' : '') }}>Instrução</option>
+                                    <option value="Perda de objeto" {{ (old('pdi_status') == 'Perda de objeto' ? 'selected' : '') }}>Perda de objeto</option>
+                                    <option value="Finalizado" {{ (old('pdi_status') == 'Finalizado' ? 'selected' : '') }}>Finalizado</option>
+                                </select>
+                            </label>
+
+                            <label class="label">
+                                <span class="legend">Outras faltas:</span>
+                                <select name="outra_falta" class="select2">
+                                    <option value="vazio" {{ (old('outra_falta') == 'vazio' ? 'selected' : '') }}>vazio</option>
+                                    <option value="Leve" {{ (old('outra_falta') == 'Leve' ? 'selected' : '') }}>Leve</option>
+                                    <option value="Média" {{ (old('outra_falta') == 'Média' ? 'selected' : '') }}>Média</option>
+                                    <option value="Grave" {{ (old('outra_falta') == 'Grave' ? 'selected' : '') }}>Grave</option>
+                                </select>
+                            </label>
+                        </div>
+
+                        <div class="label_g2">
+                            <label class="label">
                                 <span class="legend">*Data de Início:</span>
-                                <input type="tel" name="data_inicio" class="mask-date" value="{{ old('data_inicio') }}"/>
+                                <input type="date" name="data_inicio" required="required" class=""
+                                       placeholder="dd/mm/yyyy"
+                                       value="{{ old('data_inicio') }}"/>
                             </label>
 
                             <label class="label">
                                 <span class="legend">*Data de Término:</span>
-                                <input type="tel" name="data_termino" class="mask-date" value="{{ old('data_termino') }}"/>
+                                <input type="date" name="data_inicio" class=""
+                                       placeholder="dd/mm/yyyy"
+                                       value="{{ old('data_termino') }}"/>
                             </label>
                         </div>
 
@@ -120,7 +135,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="text-right mt-2">

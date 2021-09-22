@@ -26,7 +26,7 @@ class Processos extends FormRequest
     {
         return [
             'id_interno'=>'required',
-            'processo_de_execucao'=>(!empty($this->request->all()['id']) ? 'unique:processos,processo_de_execucao,' . $this->request->all()['id'] : 'unique:processos,processo_de_execucao'),
+            'processo_de_execucao'=>'required',
             'n_inquerito'=>'max:191',
             'pena_ano'=>'nullable|numeric',
             'pena_meses'=>'nullable|numeric',
@@ -38,7 +38,6 @@ class Processos extends FormRequest
             'exticao_punibilidade'=>'max:191',
             'vara_comarca'=>'required|max:191',
             'acidente_doenca_morte'=>'max:191',
-            'cpb_cpm'=>'required',
         ];
     }
 }

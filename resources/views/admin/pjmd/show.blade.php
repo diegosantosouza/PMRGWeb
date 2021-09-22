@@ -39,7 +39,7 @@
                         <a href="#dados_cadastrais" class="nav_tabs_item_link active">Dados</a>
                     </li>
                     <li class="nav_tabs_item">
-                        <a href="#documentos" class="nav_tabs_item_link">Documentos <span class="badge badge-warning right">{{$documentos->count()}}</span></a>
+                        <a href="#documentos" class="nav_tabs_item_link">Documentos <span class="badge badge-warning right">{{$comportamento->arquivos->count()}}</span></a>
                     </li>
                 </ul>
 
@@ -53,6 +53,11 @@
                                 <span class="legend">*Número do PDI:</span>
                                 <input type="text" name="numero" placeholder="Exemplo 123/20/2020" value="{{ $comportamento->numero }}"/>
                             </label>
+
+                            <label class="label">
+                                <span class="legend">*Tipo de falta:</span>
+                                <input type="text" name="tipo_falta" value="{{ $comportamento->tipo_falta}}"/>
+                            </label>
                         </div>
 
                         <div class="label_g2">
@@ -62,8 +67,8 @@
                             </label>
 
                             <label class="label">
-                                <span class="legend">*Tipo de falta:</span>
-                                <input type="text" name="tipo_falta" value="{{ $comportamento->tipo_falta}}"/>
+                                <span class="legend">Outra falta:</span>
+                                <input type="text" name="outra_falta" value="{{ $comportamento->outra_falta}}"/>
                             </label>
                         </div>
 
@@ -99,12 +104,14 @@
 
 
                     <div id="documentos" class="d-none">
-                        @foreach($documentos as $documento)
-                            <div class="mt-1">
-                                <a target="_blank" href="{{asset('storage/'.$documento->path)}}" class="text-orange">{{\Illuminate\Support\Str::afterLast($documento->path, '/')}}</a>
-                                <hr>
-                            </div>
-                        @endforeach
+                        @if(!empty($comportamento->arquivos))
+                            @foreach($comportamento->arquivos as $documento)
+                                <div class="mt-1">
+                                    <a target="_blank" href="{{asset('storage/'.$documento->path)}}" class="text-orange">{{\Illuminate\Support\Str::afterLast($documento->path, '/')}}</a>
+                                    <hr>
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
 
                 </div>

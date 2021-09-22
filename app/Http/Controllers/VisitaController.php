@@ -38,8 +38,8 @@ class VisitaController extends Controller
         if (Auth::user()->penal == 1 ) {
             $interno = Interno::where('id', $interno)->first();
             $estados = Estado::select('Nome', 'Uf')->orderBy('Nome', 'asc')->get();
-            $municipios = Municipio::select('Nome', 'Uf')->orderBy('Nome', 'asc')->get();
-            return view('admin.penal.visitas.create', ['interno' => $interno, 'estados' => $estados, 'municipios' => $municipios]);
+
+            return view('admin.penal.visitas.create', ['interno' => $interno, 'estados' => $estados]);
         }
         return redirect()->back()->with(['color' => 'orange', 'message' => 'Usuário não possui permissão.']);
     }
@@ -54,7 +54,7 @@ class VisitaController extends Controller
     {
         if (Auth::user()->penal == 1 ) {
             $visita = Visitas::create($request->all());
-            $interno = Interno::where('id', $visita->id_interno)->select('re')->first();
+            $interno = Interno::where('id', $visita->id_interno)->select(['id','re'])->first();
             if (!empty($request->file('foto'))) {
                 $visita->foto = $request->file('foto')->storeAs('interno/' . $interno->re . '/' . 'visitas/' . $visita->nome . $visita->id, $request->file('foto')->getClientOriginalName());
                 $visita->save();
@@ -74,7 +74,7 @@ class VisitaController extends Controller
                 }
             }
 
-            return redirect()->route('visita.edit', ['visitum' => $visita->id])->with(['color' => 'green', 'message' => 'Cadastrado com sucesso!']);
+            return redirect()->route('internos.edit', ['interno' => $interno->id])->with(['color' => 'green', 'message' => 'Cadastrado com sucesso!']);
         }
         return redirect()->back()->with(['color' => 'orange', 'message' => 'Usuário não possui permissão.']);
     }
@@ -106,9 +106,8 @@ class VisitaController extends Controller
             $visita = Visitas::where('id', $id)->first();
             $documentos = $visita->arquivos()->get();
             $estados = Estado::select('Nome', 'Uf')->orderBy('Nome', 'asc')->get();
-            $municipios = Municipio::select('Nome', 'Uf')->orderBy('Nome', 'asc')->get();
 
-            return view('admin.penal.visitas.edit', ['visita' => $visita, 'documentos' => $documentos, 'estados' => $estados, 'municipios' => $municipios]);
+            return view('admin.penal.visitas.edit', ['visita' => $visita, 'documentos' => $documentos, 'estados' => $estados]);
         }
         return redirect()->back()->with(['color' => 'orange', 'message' => 'Usuário não possui permissão.']);
     }
@@ -157,7 +156,7 @@ class VisitaController extends Controller
                 return redirect()->back()->withInput()->withErrors();
             }
 
-            return redirect()->route('visita.edit', ['visitum' => $visita->id])->with(['color' => 'green', 'message' => 'Atualizado com sucesso!']);
+            return redirect()->route('internos.edit', ['interno' => $visita->interno->id])->with(['color' => 'green', 'message' => 'Atualizado com sucesso!']);
         }
         return redirect()->back()->with(['color' => 'orange', 'message' => 'Usuário não possui permissão.']);
     }

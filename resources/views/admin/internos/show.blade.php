@@ -140,6 +140,12 @@
                                 </label>
 
                                 <label class="label">
+                                    <span class="legend">*Nacionalidade:</span>
+                                    <input type="text" name="nacionalidade" value="{{$interno->nacionalidade }}"/>
+                                </label>
+
+
+                                <label class="label">
                                     <span class="legend">*Estado:</span>
                                     <input type="tel" name="estado" value="{{$interno->estado }}"/>
                                 </label>
@@ -290,7 +296,7 @@
                                     <div class="label_g2">
                                         <label class="label">
                                             <span class="legend">Endereço:</span>
-                                            <input type="text" name="endereco" class="mask-phone"
+                                            <input type="text" name="endereco" class=""
                                                    value="{{$interno->endereco}}"/>
                                         </label>
 
@@ -303,7 +309,7 @@
                                     <div class="label_g2">
                                         <label class="label">
                                             <span class="legend">Telefone de Contato:</span>
-                                            <input type="tel" name="telefone" class="mask-phone"
+                                            <input type="tel" name="telefone" class="mask-cell"
                                                    value="{{$interno->telefone}}"/>
                                         </label>
                                         <label class="label">
@@ -486,6 +492,37 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="app_collapse mt-2">
+                                <div class="app_collapse_header collapse">
+                                    <h3>Movimento carcerário</h3>
+                                    <span class="icon-plus-circle icon-notext"></span>
+                                </div>
+
+                                <div class="app_collapse_content d-none">
+                                    @if(!empty($interno->movcarcerario))
+                                        @foreach($interno->movcarcerario as $movcarcerario)
+                                            <div class="label_g4">
+                                                <label class="label">
+                                                    <span class="legend">Anterior:</span>
+                                                    <input type="text" name="celaanterior"
+                                                           value="{{ $movcarcerario->celaanterior.' estágio '.$movcarcerario->estagioanterior}}"/>
+                                                </label>
+                                                <label class="label">
+                                                    <span class="legend">Para:</span>
+                                                    <input type="text" name="celaatual"
+                                                           value="{{ $movcarcerario->celaatual.' estágio '.$movcarcerario->estagioatual}}"/>
+                                                </label>
+
+                                                <label class="label">
+                                                    <span class="legend">Data:</span>
+                                                    <input type="tel" name="datamovcarcerario" class="mask-date"
+                                                           value="{{ $movcarcerario->created_at}}"/>
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                            </div>
                         </div>
 
                         <div id="processual" class="d-none">
@@ -493,21 +530,42 @@
                                 @foreach($interno->processos as $processo)
                                     <div class="app_collapse mt-2">
                                         <div class="app_collapse_header collapse">
-                                            <h3>Nº{{$processo->processo_de_execucao}}</h3>
+                                            <div>
+                                                <h3>
+                                                    @if(!empty($processo->processo_de_execucao))
+                                                        Proc. Exec. Nº {{$processo->processo_de_execucao}}
+                                                    @else
+                                                        Nº Inquérito {{$processo->n_inquerito}}
+                                                    @endif </h3>@if(!empty($processo->processo_referencia))<i
+                                                    class="text-orange">Proc.
+                                                    Referência: {{$processo->processo_referencia}}</i>@endif
+                                            </div>
+                                            <p class="">Situação: {{$processo->sit_processual}}</p>
                                             <span class="icon-plus-circle icon-notext"></span>
                                         </div>
                                         <div class="app_collapse_content d-none">
+                                            <div class="text-right">
+                                                <a href="{{route('processos.edit',['processo'=>$processo->id])}}"
+                                                   class="btn btn-green icon-pencil">Editar</a>
+                                            </div>
                                             <div class="label_g2">
                                                 <label class="label">
                                                     <span class="legend">Crime em durante o serviço:</span>
                                                     <input type="text" name="em_servico"
                                                            value="{{ $processo->em_servico}}"/>
                                                 </label>
+                                                <label class="label">
+                                                    <span class="legend">Processo Referência:</span>
+                                                    <input type="text" name="processo_referencia"
+                                                           placeholder="Processo de Referencia"
+                                                           class="processo-execucao"
+                                                           value="{{ $processo->processo_referencia }}"/>
+                                                </label>
                                             </div>
 
                                             <div class="label_g2">
                                                 <label class="label">
-                                                    <span class="legend">Processo de Execução:</span>
+                                                    <span class="legend">Processo:</span>
                                                     <input type="text" name="processo_de_execucao"
                                                            value="{{ $processo->processo_de_execucao }}"/>
                                                 </label>
@@ -576,18 +634,6 @@
 
                                             <div class="label_g2">
                                                 <label class="label">
-                                                    <span class="legend">*CPB CPM:</span>
-                                                    <input type="text" name="cpb_cpm" value="{{ $processo->cpb_cpm}}"/>
-                                                </label>
-
-                                                <label class="label">
-                                                    <span class="legend">Artigo:</span>
-                                                    <input type="text" name="artigo" value="{{ $processo->artigo}}"/>
-                                                </label>
-                                            </div>
-
-                                            <div class="label_g2">
-                                                <label class="label">
                                                     <span class="legend">Medida de Tratamento:</span>
                                                     <input type="text" name="medida_tratamento"
                                                            value="{{ $processo->medida_tratamento}}"/>
@@ -613,6 +659,26 @@
                                                            value="{{ $processo->exticao_punibilidade}}"/>
                                                 </label>
                                             </div>
+                                            <table class="table bg-white" id="artigos">
+                                                <thead>
+                                                <th>Legislação</th>
+                                                <th>Leis Especiais</th>
+                                                <th>Artigo</th>
+                                                <th>Descrição</th>
+                                                </thead>
+                                                <tbody class="text-center" id="artigosRows">
+                                                @foreach($interno->legislacao as $legislacao)
+                                                    @if($legislacao->id_processo == $processo->id)
+                                                        <tr>
+                                                            <td>{{$legislacao->legislacao}}</td>
+                                                            <td>{{$legislacao->leis_especiais}}</td>
+                                                            <td>{{$legislacao->artigo}}</td>
+                                                            <td>{{$legislacao->descricao}}</td>
+                                                        </tr>
+                                                    @endif
+                                                @endforeach
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 @endforeach
@@ -831,6 +897,12 @@
                                                     <input type="text" name="numero" placeholder="Exemplo 123/20/2020"
                                                            value="{{ $comportamento->numero }}"/>
                                                 </label>
+
+                                                <label class="label">
+                                                    <span class="legend">*Tipo de falta:</span>
+                                                    <input type="text" name="tipo_falta"
+                                                           value="{{ $comportamento->tipo_falta}}"/>
+                                                </label>
                                             </div>
 
                                             <div class="label_g2">
@@ -841,9 +913,8 @@
                                                 </label>
 
                                                 <label class="label">
-                                                    <span class="legend">*Tipo de falta:</span>
-                                                    <input type="text" name="tipo_falta"
-                                                           value="{{ $comportamento->tipo_falta}}"/>
+                                                    <span class="legend">Outra falta:</span>
+                                                    <input type="text" name="outra_falta" value="{{ $comportamento->outra_falta}}"/>
                                                 </label>
                                             </div>
 
@@ -909,7 +980,8 @@
             </div>
         </div>
 
-        <form class="app_form" action="{{route('gerar.internofichaPDF',['id'=>$interno->id])}}" target="_blank" method="post"
+        <form class="app_form" action="{{route('gerar.internofichaPDF',['id'=>$interno->id])}}" target="_blank"
+              method="post"
               enctype="multipart/form-data">
             @csrf
             <div class="actions text-right mt-2">
@@ -918,6 +990,5 @@
         </form>
 
     </section>
-
 @endsection
 

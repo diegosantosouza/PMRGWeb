@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<div class="row mx-auto">
+<div class="row mx-auto container">
     <img class="img-header" src="{{url(asset('backend/assets/images/sao_paulo.png'))}}">
     <div class="mx-auto">
         <h3 class="text-center">GOVERNO DO ESTADO DE SÃO PAULO</h3>
@@ -42,15 +42,15 @@
                     <tbody>
                     @foreach ($internos->where('alojamento', $alojamento->cela) as $key => $interno)
                         <tr>
-                            <td>{{ $interno->n }}</td>
-                            <td>{{ $interno->nome_completo }}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class="small">{{ $interno->n }}</td>
+                            <td class="small">{{ $interno->nome_completo }}</td>
+                            <td class="small"></td>
+                            <td class="small"></td>
+                            <td class="small"></td>
+                            <td class="small"></td>
+                            <td class="small"></td>
+                            <td class="small"></td>
+                            <td class="small"></td>
                         </tr>
                     @endforeach
                     </tbody>

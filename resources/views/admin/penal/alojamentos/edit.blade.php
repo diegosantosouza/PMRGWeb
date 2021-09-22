@@ -11,7 +11,7 @@
                 <ul>
                     <li><a href="{{ route('admin.inicio') }}">Início</a></li>
                     <li class="separator icon-angle-right icon-notext"></li>
-                    <li><a href="{{ route('processos.index') }}">Alojamentos</a></li>
+                    <li><a href="{{ route('alojamentos.index') }}">Alojamentos</a></li>
                     <li class="separator icon-angle-right icon-notext"></li>
                     <li><a href="" class="text-orange">Editar</a></li>
                 </ul>
