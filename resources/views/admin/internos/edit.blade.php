@@ -716,15 +716,15 @@
                                                     1º Sgt PM Ref
                                                 </option>
                                                 <option
-                                                    value="subten PM" {{ (old('patente') == 'subten PM' ? 'selected' : ($interno->patente == 'subten PM' ? 'selected' :'' )) }}>
+                                                    value="Subten PM" {{ (old('patente') == 'Subten PM' ? 'selected' : ($interno->patente == 'Subten PM' ? 'selected' :'' )) }}>
                                                     Subten PM
                                                 </option>
                                                 <option
-                                                    value="Ex subten PM" {{ (old('patente') == 'Ex subten PM' ? 'selected' : ($interno->patente == 'Ex subten PM' ? 'selected' :'' )) }}>
+                                                    value="Ex Subten PM" {{ (old('patente') == 'Ex Subten PM' ? 'selected' : ($interno->patente == 'Ex Subten PM' ? 'selected' :'' )) }}>
                                                     Ex Subten PM
                                                 </option>
                                                 <option
-                                                    value="subten PM Ref" {{ (old('patente') == 'subten PM Ref' ? 'selected' : ($interno->patente == 'subten PM Ref' ? 'selected' :'' )) }}>
+                                                    value="Subten PM Ref" {{ (old('patente') == 'Subten PM Ref' ? 'selected' : ($interno->patente == 'Subten PM Ref' ? 'selected' :'' )) }}>
                                                     Subten PM Ref
                                                 </option>
                                                 <option

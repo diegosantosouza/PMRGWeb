@@ -92,7 +92,7 @@
                 @endforeach
                 <tr>
                     <td class="font-weight-bold text-center">Qtd.</td>
-                    <td class="font-weight-bold text-center">{{$internos1->where('alojamento', $alojamento->cela)->count()}}</td>
+                    <td class="font-weight-bold text-center">{{$internos2->where('alojamento', $alojamento->cela)->count()}}</td>
                     <td class="font-weight-bold text-center" colspan="4">Capacidade</td>
                     <td class="font-weight-bold text-center">{{$alojamento->capacidade}}</td>
                 </tr>
@@ -129,15 +129,13 @@
                         <td class="small"></td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td class="font-weight-bold text-center">Qtd.</td>
+                    <td class="font-weight-bold text-center">{{$internos3->where('alojamento', $alojamento->cela)->count()}}</td>
+                    <td class="font-weight-bold text-center" colspan="4">Capacidade</td>
+                    <td class="font-weight-bold text-center">{{$alojamento->capacidade}}</td>
+                </tr>
                 </tbody>
-            </table>
-            <table class="table table-sm table-bordered">
-                <thead>
-                <th>Qtd.</th>
-                <th>{{$internos3->where('alojamento', $alojamento->cela)->count()}}</th>
-                <th>Capacidade</th>
-                <th>{{$alojamento->capacidade}}</th>
-                </thead>
             </table>
         @endforeach
         <div style="page-break-after: always"></div>
@@ -169,15 +167,13 @@
                         <td class="small"></td>
                     </tr>
                 @endforeach
+                <tr>
+                    <td class="font-weight-bold text-center">Qtd.</td>
+                    <td class="font-weight-bold text-center">{{$internos4->where('alojamento', $alojamento->cela)->count()}}</td>
+                    <td class="font-weight-bold text-center" colspan="4">Capacidade</td>
+                    <td class="font-weight-bold text-center">{{$alojamento->capacidade}}</td>
+                </tr>
                 </tbody>
-            </table>
-            <table class="table table-sm table-bordered">
-                <thead>
-                <th>Qtd.</th>
-                <th>{{$internos4->where('alojamento', $alojamento->cela)->count()}}</th>
-                <th>Capacidade</th>
-                <th>{{$alojamento->capacidade}}</th>
-                </thead>
             </table>
         @endforeach
     @endif

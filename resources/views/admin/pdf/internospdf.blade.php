@@ -35,12 +35,12 @@
         <tbody>
         @foreach ($internos as $key => $interno)
         <tr>
-            <td>{{ $interno->n }}</td>
-            <td>{{ $interno->re }}</td>
-            <td>{{ $interno->nome_completo }}</td>
-            <td>{{ $interno->estagio }}</td>
-            <td>{{ $interno->alojamento }}</td>
-            <td>{{ date('d/m/Y', strtotime($interno->created_at)) }}</td>
+            <td class="small">{{ $interno->n }}</td>
+            <td class="small">{{ $interno->re }}</td>
+            <td class="small">{{ $interno->nome_completo }}</td>
+            <td class="small">{{ $interno->estagio }}</td>
+            <td class="small">{{ $interno->alojamento }}</td>
+            <td class="small">{{ date('d/m/Y', strtotime($interno->created_at)) }}</td>
         </tr>
         @endforeach
         </tbody>
