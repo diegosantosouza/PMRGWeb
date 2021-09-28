@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::delete('internos/{arquivo}/delete', 'InternosController@arquivoDelete')->name('interno.arquivoDelete');
     Route::resource('internos', 'InternosController');
 
-    Route::put('entradavisitantes/entrada/{visita}/interno/{interno}', 'EntradaVisitantesController@entrada')->name('entradavisitantes.entrada');
+    Route::post('entradavisitantes/entrada', 'EntradaVisitantesController@entrada')->name('entradavisitantes.entrada');
     Route::get('entradavisitantes/saida/{visita}', 'EntradaVisitantesController@saida')->name('entradavisitantes.saida');
     Route::get('entradavisitantes/listasaida', 'EntradaVisitantesController@listasaida')->name('entradavisitantes.listasaida');
     Route::resource('entradavisitantes', 'EntradaVisitantesController');
@@ -79,6 +79,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::POST('alojamentos/buscaestagio', 'AlojamentosController@buscaestagio')->name('alojamentos.buscaestagio');
     Route::resource('alojamentos', 'AlojamentosController');
 
+    Route::POST('visita/search', 'VisitaController@visitaSearch')->name('visita.visitaSearch');
     Route::delete('visita/{visita}/delete', 'VisitaController@arquivoDelete')->name('visita.arquivoDelete');
     Route::get('visita/{visita}/create', 'VisitaController@create')->name('visita.create');
     Route::resource('visita', 'VisitaController')->except(['create']);

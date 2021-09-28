@@ -18,6 +18,15 @@ use Illuminate\Support\Facades\Storage;
 class VisitaController extends Controller
 {
     /**
+     * @param Request $request
+     * @return false|string
+     */
+    public function visitaSearch(Request $request)
+    {
+        $visitas = Visitas::where($request->tipo, 'like', $request->params . '%')->with('interno')->where('deleted_at', null)->limit(15)->get();
+        return json_encode($visitas);
+    }
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
