@@ -128,7 +128,7 @@
                                     <td>{{$interno->nome_guerra}}</td>
                                     <td>{{$interno->created_at}}</td>
                                     <td><a class="icon-cog btn btn-orange"
-                                           href="{{ route('internos.show', ['interno' => $interno->id]) }}">Gerenciar</a></td>
+                                           href="{{ route('interno.excluidosShow', ['interno' => $interno->id]) }}">Gerenciar</a></td>
                                 </tr>
                             @endforeach
                             </tbody>
