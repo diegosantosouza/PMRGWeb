@@ -25,6 +25,12 @@
         </header>
 
         <div class="dash_content_app_box">
+            @if(session()->exists('message'))
+
+                <div class="message message-{{session()->get('color')}}">
+                    <p class="icon-asterisk">{{ session()->get('message') }}</p>
+                </div>
+            @endif
             <div class="nav">
 
                 <ul class="nav_tabs">
@@ -891,6 +897,10 @@
                                         </div>
 
                                         <div class="app_collapse_content d-none">
+                                            <div class="text-right">
+                                                <a class="btn btn-green icon-pencil"
+                                                   href="{{ route('pjmd.edit', ['pjmd'=>$comportamento->id]) }}">Editar</a>
+                                            </div>
                                             <div class="label_g2">
                                                 <label class="label">
                                                     <span class="legend">*Número do PDI:</span>

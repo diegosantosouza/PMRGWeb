@@ -16,11 +16,8 @@
                 </nav>
 
                 <a href="{{ route('internos.create') }}" class="btn btn-orange icon-user ml-1">Criar novo</a>
-{{--                <button class="btn btn-green icon-search icon-notext ml-1 search_open"></button>--}}
             </div>
         </header>
-
-{{--        @include('admin.users.filter')--}}
 
         <div class="dash_content_app_box">
             <div class="dash_content_app_box_stage">
@@ -30,7 +27,6 @@
                         <div class="message message-{{session()->get('color')}}">
                             <p class="icon-asterisk">{{ session()->get('message') }}</p>
                         </div>
-
                 @endif
                 <table id="dataTable" class="nowrap stripe"  style="width: 100% !important;">
                     <thead>

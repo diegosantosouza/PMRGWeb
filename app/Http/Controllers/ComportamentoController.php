@@ -76,10 +76,9 @@ class ComportamentoController extends Controller
     public function show($id)
     {
         $comportamento = Comportamento::where('id', $id)->with(['arquivos', 'interno'])->first();
-//        dd($comportamento);
-//        $documentos= $comportamento->arquivos;
+        $documentos= $comportamento->arquivos;
 
-        return view('admin.pjmd.show', ['comportamento'=>$comportamento]);
+        return view('admin.pjmd.show', ['comportamento'=>$comportamento, 'documentos'=>$documentos]);
 
     }
 
@@ -92,7 +91,7 @@ class ComportamentoController extends Controller
     public function edit($id)
     {
         if (Auth::user()->pjmd == 1 ) {
-            $comportamento = Comportamento::where('id', $id)->first();
+            $comportamento = Comportamento::where('id', $id)->with('interno')->first();
             $documentos = $comportamento->arquivos()->get();
             return view('admin.pjmd.edit', ['comportamento' => $comportamento, 'documentos' => $documentos]);
         }

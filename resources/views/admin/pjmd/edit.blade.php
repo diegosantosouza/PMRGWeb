@@ -20,7 +20,12 @@
     </header>
 
     <div class="">
-        <h3 class="text-center text-bold"><a class="btn btn-blue icon-eye" href="{{ route('internos.show', ['interno'=>$comportamento->interno->id]) }}"></a> {{$comportamento->interno->nome_guerra}} | Nº{{$comportamento->interno->n}} | Estágio : {{$comportamento->interno->estagio}}</h3>
+        <h3 class="text-center text-bold">
+            @if(empty(!$comportamento->interno->n))
+                <a class="btn btn-blue icon-eye" href="{{ route('internos.show', ['interno'=>$comportamento->interno->id]) }}">
+            @endif
+                </a> {{$comportamento->interno->nome_guerra}} | Nº{{$comportamento->interno->n}} | Estágio : {{$comportamento->interno->estagio}}</h3>
+
     </div>
 
     <div class="dash_content_app_box">

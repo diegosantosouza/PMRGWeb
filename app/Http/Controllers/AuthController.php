@@ -20,9 +20,10 @@ class AuthController extends Controller
             if (Auth::user(['ativo' => 1]) ){
                 $internos = Interno::with(['comportamento'])->withCount(['comportamento'])->get();
                 $ultimosInternos = Interno::latest()->take(10)->get();
+                $alvaras = Interno::onlyTrashed()->latest()->take(10)->get();
                 $alojamentos = Alojamentos::all();
                 $comportamentos = Comportamento::all();
-                return view('admin.inicio', ['internos'=>$internos, 'alojamentos'=>$alojamentos, 'comportamentos'=>$comportamentos, 'ultimosInternos'=>$ultimosInternos]);
+                return view('admin.inicio', ['internos'=>$internos, 'alojamentos'=>$alojamentos, 'comportamentos'=>$comportamentos, 'ultimosInternos'=>$ultimosInternos, 'alvaras'=>$alvaras]);
             }
         }
 

@@ -70,52 +70,73 @@
                     </article>
                 </section>
             </div>
-        </section>
 
-        <section class="content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6">
+            <div class="dash_content_app_box">
+                <section class="app_dash_home_stats">
+                    <article class="blog radius">
+                        <h4 class="">Ocupação</h4>
                         <!-- BAR CHART -->
-                        <div class="card card-success">
-                            <div class="card-header">
-                                <h3 class="card-title">Ocupação</h3>
-                            </div>
+                        <div class="card card-danger">
+
                             <div class="card-body">
-                                <div class="chart">
-                                    <canvas id="barChart"
-                                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-                                </div>
+                                <canvas id="barChart"
+                                        style="min-height: 250px; height: 500px; max-height: 100%; max-width: 100%;"></canvas>
                             </div>
+                            <!-- /.card-body -->
                         </div>
-                    </div>
-                </div>
+                        <!-- /.card -->
+                    </article>
+
+                    <article class="users radius">
+                        <h4 class="">Últimos cadastros</h4>
+                        <table class="table table-sm table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Nº</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Data</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($ultimosInternos as $interno)
+                                <tr>
+                                    <td>{{$interno->n}}</td>
+                                    <td>{{$interno->nome_guerra}}</td>
+                                    <td>{{$interno->created_at}}</td>
+                                    <td><a class="icon-cog btn btn-orange"
+                                           href="{{ route('internos.show', ['interno' => $interno->id]) }}">Gerenciar</a></td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </article>
+
+                    <article class="blog radius">
+                        <h4 class="">Alvarás</h4>
+                        <table class="table table-sm table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Data</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($alvaras as $interno)
+                                <tr>
+                                    <td>{{$interno->nome_guerra}}</td>
+                                    <td>{{$interno->created_at}}</td>
+                                    <td><a class="icon-cog btn btn-orange"
+                                           href="{{ route('internos.show', ['interno' => $interno->id]) }}">Gerenciar</a></td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </article>
+                </section>
             </div>
         </section>
-        <header class="dash_content_app_header">
-            <h2 class="icon-users">Últimos cadastros</h2>
-        </header>
-        <div class="dash_content_app_box">
-            <section class="app_users_home">
-                @foreach($ultimosInternos as $interno)
-                    <article class="user radius">
-                        <div class="cover"
-                             style="background-size: cover; background-image: url({{ $interno->url_foto }});"></div>
-                        <h4>{{$interno->nome_guerra}}</h4>
-
-                        <div class="info">
-                            <h3>Nº{{$interno->n}}</h3>
-                            <p>{{ date('d/m/Y', strtotime($interno->created_at)) }}</p>
-                        </div>
-
-                        <div class="actions">
-                            <a class="icon-cog btn btn-orange"
-                               href="{{ route('internos.show', ['interno' => $interno->id]) }}">Gerenciar</a>
-                        </div>
-                    </article>
-                @endforeach
-            </section>
-        </div>
     </div>
 @endsection
 

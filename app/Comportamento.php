@@ -22,7 +22,7 @@ class Comportamento extends Model
 
     public function interno()
     {
-        return $this->belongsTo(Interno::class,'id_interno','id');
+        return $this->belongsTo(Interno::class,'id_interno','id')->withTrashed();
     }
 
     public function arquivos()
