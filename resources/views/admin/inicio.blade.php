@@ -126,7 +126,7 @@
                             @foreach($alvaras as $interno)
                                 <tr>
                                     <td>{{$interno->nome_guerra}}</td>
-                                    <td>{{$interno->created_at}}</td>
+                                    <td>{{date('d-m-Y', strtotime($interno->deleted_at))}}</td>
                                     <td><a class="icon-cog btn btn-orange"
                                            href="{{ route('interno.excluidosShow', ['interno' => $interno->id]) }}">Gerenciar</a></td>
                                 </tr>

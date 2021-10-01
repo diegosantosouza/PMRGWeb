@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Comportamento;
 use App\ComportamentoArquivos;
 use App\Interno;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Comportamento as ComportamentoRequest;
 use Illuminate\Support\Facades\Auth;
@@ -20,8 +21,21 @@ class ComportamentoController extends Controller
      */
     public function index()
     {
-        $comportamentos = Comportamento::with('interno')->get();
-        return view('admin.pjmd.index', ['comportamentos'=>$comportamentos]);
+        /**
+         * seleciona os registros em Comportamento que possuem o relacionamento de internos
+         */
+        $comportamentos = Comportamento::with('interno')->where('pdi_status', '=', 'Instrução')
+            ->whereHas('interno', function (Builder $query) {
+                $query->where('deleted_at', '=', null);
+            })->get();
+        /**
+         * seleciona os registros em Comportamento que possuem o relacionamento de internos que receberam alvará
+         */
+        $instrucaoAlvara = Comportamento::with('interno')->where('pdi_status', '=', 'Instrução')
+            ->whereHas('interno', function (Builder $query) {
+            $query->where('deleted_at', '!=', null);
+        })->get();
+        return view('admin.pjmd.index', ['comportamentos'=>$comportamentos, 'instrucaoAlvara'=>$instrucaoAlvara]);
     }
 
     /**

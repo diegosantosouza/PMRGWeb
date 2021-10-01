@@ -17,12 +17,8 @@
                 <button type="button" id="myModal" class="btn btn-orange icon-bookmark" data-toggle="modal"
                         data-target="#adicionarModal">Criar novo
                 </button>
-                {{--                <button class="btn btn-green icon-search icon-notext ml-1 search_open"></button>--}}
-
             </div>
         </header>
-
-        {{--        @include('admin.users.filter')--}}
 
         <div class="dash_content_app_box">
             <div class="dash_content_app_box_stage">
@@ -71,6 +67,39 @@
                 </table>
             </div>
         </div>
+
+        <h1 class="mt-2 text-orange">PDI's em instrução de internos com alvará</h1>
+        <table class="table table-sm table-striped">
+            <thead>
+            <tr>
+                <th>Nº</th>
+                <th>Interno</th>
+                <th>Status</th>
+                <th>Falta</th>
+                <th>Início</th>
+                <th>Término</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($instrucaoAlvara as $alvara)
+                <tr>
+                    <td>{{$alvara->numero}}</td>
+                    <td>{{$alvara->interno->nome_guerra}}</td>
+                    <td>{{$alvara->pdi_status}}</td>
+                    <td>{{$alvara->tipo_falta}}</td>
+                    <td>{{$alvara->data_inicio}}</td>
+                    <td>{{$alvara->data_termino}}</td>
+                    <td class="text-right">
+                        <a class="btn btn-blue icon-eye"
+                           href="{{ route('pjmd.show', ['pjmd'=>$alvara->id]) }}"></a>
+                        <a class="btn btn-green icon-pencil"
+                           href="{{ route('pjmd.edit', ['pjmd'=>$alvara->id]) }}"></a>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
     </section>
     <!-- Adicionar Modal -->
     <div class="modal fade" id="adicionarModal" tabindex="-1" aria-labelledby="adicionarModalLabel" aria-hidden="true">
