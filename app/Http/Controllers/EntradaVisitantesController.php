@@ -49,6 +49,10 @@ class EntradaVisitantesController extends Controller
         $idade = $visitante->idade($visitante->dt_nascimento);
         $contagem = EntradaVisitantes::whereDate('created_at', '=', date('Y-m-d'))->count();
 
+        if ($visitante->status != 'Ativo'){
+            return json_encode(['color' => 'orange', 'message' => 'Entrada não efetuada, visitante INATIVO ou SUSPENSO!']);
+        }
+
         if ( $visitaHoje == true) {
             return json_encode(['color' => 'orange', 'message' => 'Entrada não efetuada, visitante já consta como entrada.']);
         } elseif ($contagemVisitas >= 0) {

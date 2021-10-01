@@ -10,6 +10,7 @@ use App\Municipio;
 use App\Support\Cropper;
 use App\Visitas;
 use App\VisitasArquivos;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Visitas as VisitasRequest;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,14 @@ class VisitaController extends Controller
      */
     public function visitaSearch(Request $request)
     {
-        $visitas = Visitas::where($request->tipo, 'like', $request->params . '%')->with('interno')->where('deleted_at', null)->limit(15)->get();
+        if ($request->tipo == 'n' || $request->tipo == 'nome_guerra'){
+            $visitas = Interno::where($request->tipo, '=',$request->params)->with('visitas')->first();
+            return json_encode($visitas);
+        }
+        $visitas = Visitas::where($request->tipo, 'like', $request->params . '%')
+            ->with('interno')->whereHas('interno', function (Builder $query) {
+                $query->where('deleted_at', '=', null);
+            })->limit(15)->get();
         return json_encode($visitas);
     }
     /**
