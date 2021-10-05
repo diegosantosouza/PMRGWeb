@@ -58,6 +58,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('internos/excluidos/{interno}', 'InternosController@excluidosShow')->name('interno.excluidosShow');
     Route::get('internos/excluidos', 'InternosController@excluidos')->name('interno.excluidos');
     Route::delete('internos/{arquivo}/delete', 'InternosController@arquivoDelete')->name('interno.arquivoDelete');
+    Route::get('internos/{interno}/visitas', 'InternosController@visitas')->name('interno.visitas');
     Route::resource('internos', 'InternosController');
 
     Route::post('entradavisitantes/entrada', 'EntradaVisitantesController@entrada')->name('entradavisitantes.entrada');

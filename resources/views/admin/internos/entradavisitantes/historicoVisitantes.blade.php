@@ -18,7 +18,9 @@
             </div>
         </header>
 
-        @include('admin.users.filter')
+        <div class="">
+            <h3 class="text-center text-bold"><a class="btn btn-blue icon-eye" href="{{ route('internos.show', ['interno'=>$interno->id]) }}"></a> {{$interno->nome_guerra}} | Nº{{$interno->n}} | Estágio : {{$interno->estagio}}</h3>
+        </div>
 
         <div class="dash_content_app_box">
             <div class="dash_content_app_box_stage">
@@ -35,39 +37,35 @@
                     <tr>
                         <th>Nome</th>
                         <th>Documento</th>
-                        <th>Interno</th>
-                        <th>Número</th>
-                        <th>Estágio</th>
                         <th>Parentesco</th>
-                        <th>Status</th>
+                        <th>Entrada</th>
+                        <th>Saida</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
 
-                    @foreach($visitas as $visita)
-                            <tr>
-                                <td>{{$visita->nome}}</td>
-                                <td>{{$visita->documento}}</td>
-                                <td>{{$visita->interno->nome_guerra}}</td>
-                                <td>{{$visita->interno->n}}</td>
-                                <td>{{$visita->interno->estagio}}</td>
-                                <td>{{$visita->parentesco}}</td>
-                                <td>{{$visita->status}}</td>
-                                <td class="text-right">
-                                    <a class="btn btn-blue icon-eye" href="{{ route('visita.show', ['visitum'=>$visita->id]) }}"></a>
-                                    <a class="btn btn-green icon-pencil" href="{{ route('visita.edit', ['visitum'=>$visita->id]) }}" ></a>
-                                </td>
-                            </tr>
-
+                    @foreach($interno->visitas as $visita)
+                        @foreach($interno->registrosVistas as $regs)
+                            @if($regs->visita_id == $visita->id)
+                                    <tr>
+                                        <td>{{$visita->nome}}</td>
+                                        <td>{{$visita->documento}}</td>
+                                        <td>{{$visita->parentesco}}</td>
+                                        <td>{{date('d-m-Y H:i:s', strtotime($regs->chegada))}}</td>
+                                        <td>@if($regs->saida != null){{date('d-m-Y H:i:s', strtotime($regs->saida))}}@endif</td>
+                                        <td class="text-right">
+                                            <a class="btn btn-blue icon-eye" href="{{ route('visita.show', ['visitum'=>$visita->id]) }}"></a>
+                                            <a class="btn btn-green icon-pencil" href="{{ route('visita.edit', ['visitum'=>$visita->id]) }}" ></a>
+                                        </td>
+                                    </tr>
+                                @endif
+                            @endforeach
                     @endforeach
-
                     </tbody>
                 </table>
             </div>
         </div>
     </section>
-
-
 @endsection
 

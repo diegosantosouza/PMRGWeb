@@ -25,6 +25,30 @@ class EntradaVisitantes extends Model
         return $this->belongsTo(Interno::class,'interno_id','id');
     }
 
+    public function setChegadaAttribute($value)
+    {
+        $this->attributes['chegada'] = $value;
+    }
+
+    public function getChegadaAttribute($value)
+    {
+        if (!empty($value)){
+            return date('d-m-Y H:i:s', strtotime($value));
+        }
+    }
+
+    public function setSaidaAttribute($value)
+    {
+        $this->attributes['saida'] = $value;
+    }
+
+    public function getSaidaAttribute($value)
+    {
+        if (!empty($value)){
+            return date('d-m-Y H:i:s', strtotime($value));
+        }
+    }
+
     private function convertStringToDate(?string $param)
     {
         if(empty($param)){

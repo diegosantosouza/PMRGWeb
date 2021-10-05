@@ -104,7 +104,7 @@ class VisitaController extends Controller
      */
     public function show($id)
     {
-        $visita = Visitas::where('id', $id)->first();
+        $visita = Visitas::where('id', $id)->with('entradavisitantes')->first();
         $documentos= $visita->arquivos()->get();
 
         return view('admin.penal.visitas.show', ['visita'=>$visita, 'documentos'=>$documentos]);

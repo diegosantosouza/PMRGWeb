@@ -708,6 +708,10 @@
                         </div>
 
                         <div id="visitas" class="d-none">
+                            <div class="text-center my-2">
+                                <a href="{{ route('interno.visitas', ['interno'=>$interno->id]) }}"
+                                   class="btn btn-large btn-orange icon-calendar-minus-o">Histórico de visitantes</a>
+                            </div>
                             @if(!empty($interno->visitas))
                                 @foreach($interno->visitas as $visita)
                                     <div class="realty_list">

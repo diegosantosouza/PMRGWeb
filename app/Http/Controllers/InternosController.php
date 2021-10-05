@@ -7,6 +7,7 @@ use App\Alojamentos;
 use App\Artigos;
 use App\Comportamento;
 use App\ComportamentoArquivos;
+use App\EntradaVisitantes;
 use App\Estado;
 use App\Interno;
 use App\InternoArquivos;
@@ -17,6 +18,7 @@ use App\Support\Cropper;
 use App\User;
 use App\Visitas;
 use App\VisitasArquivos;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Internos as InternosRequest;
 use Illuminate\Support\Facades\Auth;
@@ -41,6 +43,14 @@ class InternosController extends Controller
 //        }
 //        echo $output;
 //    }
+
+    public function visitas($id)
+    {
+        $interno = Interno::where('id', $id)->with(['visitas', 'registrosVistas'])->first();
+//        dd($interno);
+//        $visitas = Visitas::
+        return view('admin.internos.entradavisitantes.historicoVisitantes', ['interno'=>$interno]);
+    }
     public function numerosVagos()
     {
         //** Número interno vazios */

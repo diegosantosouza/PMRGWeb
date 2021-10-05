@@ -109,6 +109,11 @@ class Interno extends Model
         return $this->hasMany(Visitas::class, 'id_interno', 'id');
     }
 
+    public function registrosVistas()
+    {
+        return $this->hasManyThrough(EntradaVisitantes::class, Visitas::class, 'id_interno', 'visita_id', 'id','id');
+    }
+
     public function advogados()
     {
         return $this->hasMany(Advogados::class, 'id_interno', 'id');

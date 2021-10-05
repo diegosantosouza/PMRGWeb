@@ -41,6 +41,9 @@
                     <li class="nav_tabs_item">
                         <a href="#documentos" class="nav_tabs_item_link">Documentos <span class="badge badge-warning right">{{$documentos->count()}}</span></a>
                     </li>
+                    <li class="nav_tabs_item">
+                        <a href="#entradas_efetuadas" class="nav_tabs_item_link">Entradas fetuadas <span class="badge badge-primary right">{{$visita->entradavisitantes->count()}}</span></a>
+                    </li>
                 </ul>
 
             <form class="app_form" action="" method="post" enctype="multipart/form-data">
@@ -230,6 +233,31 @@
                                 <hr>
                             </div>
                         @endforeach
+                    </div>
+
+                    <div id="entradas_efetuadas" class="d-none">
+                        <table id="dataTable" class="nowrap stripe"  style="width: 100% !important;">
+                            <thead>
+                            <tr>
+                                <th>Interno</th>
+                                <th>RE</th>
+                                <th>Estágio</th>
+                                <th>Entrada</th>
+                                <th>Saída</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($visita->entradavisitantes as $entrada)
+                                <tr>
+                                    <td>{{$visita->interno->n.'-'.$visita->interno->nome_guerra}}</td>
+                                    <td>{{$visita->interno->re}}</td>
+                                    <td>{{$visita->interno->estagio}}</td>
+                                    <td>{{$entrada->chegada}}</td>
+                                    <td>{{$entrada->saida}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </form>
