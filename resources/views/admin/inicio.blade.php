@@ -63,9 +63,9 @@
 
                     <article class="blog radius">
                         <h4 class="">PDI's em instrução</h4>
-                        <h1 class="text-center mt-4 mb-2">{{$comportamentos->where('data_termino', null)->count()}}</h1>
+                        <h1 class="text-center mt-4 mb-2">{{$comportamentos->count()}}</h1>
                         <h3 class="text-center mt-1 mb-1">
-                            <pre>Grave:{{$comportamentos->where('data_termino', null)->where('tipo_falta', 'Grave')->count()}}   Média:{{$comportamentos->where('data_termino', null)->where('tipo_falta', 'Média')->count()}}   Leve:{{$comportamentos->where('data_termino', null)->where('tipo_falta', 'Leve')->count()}}</pre>
+                            <pre>Grave:{{$comportamentos->where('tipo_falta', 'Grave')->count()}}   Média:{{$comportamentos->where('tipo_falta', 'Média')->count()}}   Leve:{{$comportamentos->where('tipo_falta', 'Leve')->count()}}</pre>
                         </h3>
                     </article>
                 </section>

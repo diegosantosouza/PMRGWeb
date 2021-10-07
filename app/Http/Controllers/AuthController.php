@@ -22,7 +22,7 @@ class AuthController extends Controller
                 $ultimosInternos = Interno::latest()->take(10)->get();
                 $alvaras = Interno::onlyTrashed()->latest('deleted_at')->take(10)->get();
                 $alojamentos = Alojamentos::all();
-                $comportamentos = Comportamento::all();
+                $comportamentos = Comportamento::where('pdi_status', 'Instrução')->get();
                 return view('admin.inicio', ['internos'=>$internos, 'alojamentos'=>$alojamentos, 'comportamentos'=>$comportamentos, 'ultimosInternos'=>$ultimosInternos, 'alvaras'=>$alvaras]);
             }
         }
