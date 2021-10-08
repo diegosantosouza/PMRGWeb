@@ -2234,7 +2234,7 @@
                             <div class="label_g2 mt-1">
                                 <label class="label">
                                     <span class="legend">Adicionar Arquivos:</span>
-                                    <input type="file" name="F*RE" multiple/>
+                                    <input type="file" name="arquivos[]" multiple/>
                                 </label>
                             </div>
                         </div>
