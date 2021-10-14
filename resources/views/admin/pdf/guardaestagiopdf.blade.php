@@ -40,13 +40,13 @@
                     <tbody>
                     @foreach ($internos->where('alojamento', $alojamento->cela) as $key => $interno)
                         <tr>
-                            <td class="small" style="width: 50px;">{{ $interno->n }}</td>
-                            <td class="small" style="width: 200px;">{{ $interno->nome_guerra }}</td>
-                            <td class="small" style="width: 50px;"></td>
-                            <td class="small" style="width: 50px;"></td>
-                            <td class="small" style="width: 50px;"></td>
-                            <td class="small" style="width: 50px;"></td>
-                            <td class="small" style="width: 50px;"></td>
+                            <td class="small font-weight-bold" style="width: 50px;">{{ $interno->n }}</td>
+                            <td class="small font-weight-bold" style="width: 200px;">{{ $interno->nome_guerra }}</td>
+                            <td class="small font-weight-bold" style="width: 50px;"></td>
+                            <td class="small font-weight-bold" style="width: 50px;"></td>
+                            <td class="small font-weight-bold" style="width: 50px;"></td>
+                            <td class="small font-weight-bold" style="width: 50px;"></td>
+                            <td class="small font-weight-bold" style="width: 50px;"></td>
                         </tr>
                     @endforeach
                     <tr>

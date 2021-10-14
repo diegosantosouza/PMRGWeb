@@ -45,16 +45,16 @@ class PdfController extends Controller
     {
         if (empty($request->ordenacao)){
             $alojamentos = Alojamentos::all();
-            $internos1 = Interno::where('estagio', 1)->orderBy('nome_completo', 'asc')->get();
-            $internos2 = Interno::where('estagio', 2)->orderBy('nome_completo', 'asc')->get();
-            $internos3 = Interno::where('estagio', 3)->orderBy('nome_completo', 'asc')->get();
-            $internos4 = Interno::where('estagio', 4)->orderBy('nome_completo', 'asc')->get();
+            $internos1 = Interno::where('estagio', 1)->orderBy('nome_guerra', 'asc')->get();
+            $internos2 = Interno::where('estagio', 2)->orderBy('nome_guerra', 'asc')->get();
+            $internos3 = Interno::where('estagio', 3)->orderBy('nome_guerra', 'asc')->get();
+            $internos4 = Interno::where('estagio', 4)->orderBy('nome_guerra', 'asc')->get();
 //            $pdf = PDF::loadView('admin.pdf.guardapdf', ['alojamentos'=>$alojamentos,'internos1'=>$internos1, 'internos2'=>$internos2, 'internos3'=>$internos3, 'internos4'=>$internos4]);
 //            return $pdf->stream();
             return  view('admin.pdf.guardapdf', ['alojamentos'=>$alojamentos,'internos1'=>$internos1, 'internos2'=>$internos2, 'internos3'=>$internos3, 'internos4'=>$internos4]);
         }else{
             $alojamentos = Alojamentos::where('estagio', $request->ordenacao)->get();
-            $internos = Interno::where('estagio', $request->ordenacao)->orderBy('nome_completo', 'asc')->get();
+            $internos = Interno::where('estagio', $request->ordenacao)->orderBy('nome_guerra', 'asc')->get();
             $estagio = $request->ordenacao;
 //            $pdf = PDF::loadView('admin.pdf.guardaestagiopdf', ['alojamentos'=>$alojamentos,'internos'=>$internos, 'estagio'=>$estagio]);
 //            return $pdf->stream();

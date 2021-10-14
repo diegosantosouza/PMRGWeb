@@ -1852,12 +1852,12 @@ pre code {
 .table td {
     padding: 0.75rem;
     vertical-align: top;
-    border-top: 1px solid #dee2e6;
+    border-top: 1px solid #000000;
 }
 
 .table thead th {
     vertical-align: bottom;
-    border-bottom: 2px solid #dee2e6;
+    border-bottom: 2px solid #000000;
 }
 
 .table tbody + tbody {
@@ -1870,12 +1870,12 @@ pre code {
 }
 
 .table-bordered {
-    border: 1px solid #dee2e6;
+    border: 1px solid #000000;
 }
 
 .table-bordered th,
 .table-bordered td {
-    border: 1px solid #dee2e6;
+    border: 1px solid #000000;
 }
 
 .table-bordered thead th,
@@ -11064,7 +11064,7 @@ a.text-dark:hover, a.text-dark:focus {
 
     .table-bordered th,
     .table-bordered td {
-        border: 1px solid #dee2e6 !important;
+        border: 2px solid #000000 !important;
     }
 
     .table-dark {
