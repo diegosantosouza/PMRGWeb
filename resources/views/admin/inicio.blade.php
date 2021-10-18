@@ -221,7 +221,7 @@
                 datasets: [
                     {
                         label: 'Ocupação',
-                        backgroundColor: '#f56954',
+                        backgroundColor: ['#c54939', '#a8721c', '#218c59', '#147f98'],
                         borderColor: 'rgba(60,141,188,0.8)',
                         pointRadius: false,
                         pointColor: '#3b8bba',
@@ -232,7 +232,7 @@
                     },
                     {
                         label: 'Capacidade',
-                        backgroundColor: '#1d5370',
+                        backgroundColor: ['#f56954', '#f39c12', '#00a65a', '#00c0ef'],
                         borderColor: 'rgba(210, 214, 222, 1)',
                         pointRadius: false,
                         pointColor: 'rgba(210, 214, 222, 1)',
