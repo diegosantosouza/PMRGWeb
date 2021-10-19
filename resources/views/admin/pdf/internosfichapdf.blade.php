@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<div class="row mx-auto">
+<div class="row mx-auto container">
     <img class="img-header" src="{{url(asset('backend/assets/images/sao_paulo.png'))}}">
     <div class="mx-auto">
         <h3 class="text-center">GOVERNO DO ESTADO DE SÃO PAULO</h3>

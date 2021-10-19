@@ -24,11 +24,11 @@
 
                 @if(session()->exists('message'))
 
-                        <div class="message message-{{session()->get('color')}}">
-                            <p class="icon-asterisk">{{ session()->get('message') }}</p>
-                        </div>
+                    <div class="message message-{{session()->get('color')}}">
+                        <p class="icon-asterisk">{{ session()->get('message') }}</p>
+                    </div>
                 @endif
-                <table id="dataTable" class="nowrap stripe"  style="width: 100% !important;">
+                <table id="dataTable" class="nowrap stripe" style="width: 100% !important;">
                     <thead>
                     <tr>
                         <th>Nº</th>
@@ -54,7 +54,7 @@
                             <tr class="gradient-blue">
                         @else($interno->estagio== '')
                             <tr>
-                        @endif
+                                @endif
                                 <td>{{$interno->n}}</td>
                                 <td>{{$interno->nome_completo}}</td>
                                 <td>{{$interno->nome_guerra}}</td>
@@ -63,12 +63,14 @@
                                 <td>{{$interno->comportamento_status}} - {{$interno->comportamento_data}}</td>
                                 <td>{{date('d/m/y', strtotime($interno->created_at))}}</td>
                                 <td class="text-right">
-                                    <a class="btn btn-blue icon-eye" href="{{ route('internos.show', ['interno'=>$interno->id]) }}"></a>
-                                    <a class="btn btn-green icon-pencil" href="{{ route('internos.edit', ['interno'=>$interno->id]) }}" ></a>
+                                    <a class="btn btn-blue icon-eye"
+                                       href="{{ route('internos.show', ['interno'=>$interno->id]) }}"></a>
+                                    <a class="btn btn-green icon-pencil"
+                                       href="{{ route('internos.edit', ['interno'=>$interno->id]) }}"></a>
                                 </td>
                             </tr>
 
-                    @endforeach
+                            @endforeach
 
                     </tbody>
                 </table>

@@ -15,23 +15,23 @@
                     </ul>
                 </nav>
 
-{{--                <button class="btn btn-green icon-search icon-notext ml-1 search_open"></button>--}}
+                {{--                <button class="btn btn-green icon-search icon-notext ml-1 search_open"></button>--}}
             </div>
         </header>
 
-{{--        @include('admin.users.filter')--}}
+        {{--        @include('admin.users.filter')--}}
 
         <div class="dash_content_app_box">
             <div class="dash_content_app_box_stage">
 
                 @if(session()->exists('message'))
 
-                        <div class="message message-{{session()->get('color')}}">
-                            <p class="icon-asterisk">{{ session()->get('message') }}</p>
-                        </div>
+                    <div class="message message-{{session()->get('color')}}">
+                        <p class="icon-asterisk">{{ session()->get('message') }}</p>
+                    </div>
 
                 @endif
-                <table id="dataTable" class="nowrap stripe"  style="width: 100% !important;">
+                <table id="dataTable" class="nowrap stripe" style="width: 100% !important;">
                     <thead>
                     <tr>
                         <th>Nº</th>
@@ -58,7 +58,7 @@
                             <tr class="gradient-blue">
                         @else($interno->estagio== '')
                             <tr>
-                        @endif
+                                @endif
                                 <td>{{$interno->n}}</td>
                                 <td>{{$interno->nome_guerra}}</td>
                                 <td>{{$interno->re}}</td>
@@ -68,11 +68,12 @@
                                 <td>{{date('d/m/y', strtotime($interno->created_at))}}</td>
                                 <td>{{date('d/m/y', strtotime($interno->deleted_at))}}</td>
                                 <td class="text-right">
-                                    <a class="btn btn-blue icon-eye" href="{{ route('interno.excluidosShow', ['interno'=>$interno->id]) }}"></a>
+                                    <a class="btn btn-blue icon-eye"
+                                       href="{{ route('interno.excluidosShow', ['interno'=>$interno->id]) }}"></a>
                                 </td>
                             </tr>
 
-                    @endforeach
+                            @endforeach
 
                     </tbody>
                 </table>

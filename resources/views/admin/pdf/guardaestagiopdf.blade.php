@@ -25,9 +25,12 @@
 <div class="container">
     @if(!empty($internos))
         <h5 class="font-weight-bold">{{$estagio}}º Estágio</h5>
+        <div class="row">
             @foreach($alojamentos->where('estagio', $estagio) as $alojamento)
-            <p class="font-weight-bold ml-5">{{$alojamento->cela}}</p>
-                <table class="table table-sm table-bordered" style="width: 500px;">
+                <table class="table table-sm table-bordered mx-2" style="width: 400px;">
+                    <thead>
+                    <th colspan="7">{{$alojamento->cela}}</th>
+                    </thead>
                     <thead>
                     <th>Nº</th>
                     <th>Nome</th>
@@ -57,7 +60,8 @@
                     </tr>
                     </tbody>
                 </table>
-        @endforeach
+            @endforeach
+        </div>
     @endif
 
 </div>

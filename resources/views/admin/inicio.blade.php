@@ -105,8 +105,10 @@
                                     <td>{{$interno->nome_guerra}}</td>
                                     <td>{{$interno->created_at}}</td>
                                     <td class="text-right">
-                                        <a class="btn btn-blue icon-eye" href="{{ route('internos.show', ['interno'=>$interno->id]) }}"></a>
-                                        <a class="btn btn-green icon-pencil" href="{{ route('internos.edit', ['interno'=>$interno->id]) }}" ></a>
+                                        <a class="btn btn-blue icon-eye"
+                                           href="{{ route('internos.show', ['interno'=>$interno->id]) }}"></a>
+                                        <a class="btn btn-green icon-pencil"
+                                           href="{{ route('internos.edit', ['interno'=>$interno->id]) }}"></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -130,7 +132,8 @@
                                     <td>{{$interno->nome_guerra}}</td>
                                     <td>{{date('d-m-Y', strtotime($interno->deleted_at))}}</td>
                                     <td class="text-right">
-                                        <a class="btn btn-blue icon-eye" href="{{ route('interno.excluidosShow', ['interno'=>$interno->id]) }}"></a>
+                                        <a class="btn btn-blue icon-eye"
+                                           href="{{ route('interno.excluidosShow', ['interno'=>$interno->id]) }}"></a>
                                     </td>
                                 </tr>
                             @endforeach
