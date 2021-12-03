@@ -48,7 +48,7 @@
                             <tr>
                                 <td>{{$processo->processo_de_execucao}}</td>
                                 <td>{{$processo->n_inquerito}}</td>
-                                <td>{{$processo->interno->n}}</td>
+                                <td>{{$processo->interno->nome_guerra}}</td>
                                 <td>{{$processo->sit_processual}}</td>
                                 <td>{{$processo->regime}}</td>
                                 <td>{{$processo->processo_referencia}}</td>
